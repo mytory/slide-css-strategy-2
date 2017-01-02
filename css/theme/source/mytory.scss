@@ -1,0 +1,145 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+
+// ---------------------------------------------
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #222;
+$headingColor: #222;
+
+$mainFontSize: 38px;
+$mainFont: 'Apple SD Gothic Neo', 'Malgun Gothic', 'NanumBarunGothic', sans-serif;
+$headingFont: 'Apple SD Gothic Neo', 'Malgun Gothic', 'NanumBarunGothic', sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: uppercase;
+$headingFontWeight: 600;
+$linkColor: #2a76dd;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-dark-background {
+  &, h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+  }
+}
+
+section.has-light-background {
+  &, h1, h2, h3, h4, h5, h6 {
+    color: #222;
+  }
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+@import "../../../lib/css/open-color";
+// ---------------------------------------------
+
+// base
+body {
+  word-break: keep-all;
+}
+
+rt {
+  color: $oc-gray-6;
+  text-transform: none;
+}
+
+code {
+  text-transform: none;
+}
+
+// typo
+.text-small {
+  font-size: $mainFontSize / 2 !important;
+}
+
+.text-medium {
+  font-size: $mainFontSize !important;
+  line-height: 1.3 !important;
+}
+
+.text-large {
+  font-size: $mainFontSize * 1.5 !important;
+  line-height: 1.3 !important;
+}
+
+.text-xlarge {
+  font-size: $mainFontSize * 2 !important;
+  line-height: 1.3 !important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-outline {
+  -webkit-text-stroke: 2px white;
+  text-shadow: white 0 0 10px !important;
+}
+
+.text-box {
+  padding: $mainFontSize !important;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.text-box--less-transparent {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+// text color
+.color-muted {
+  color: $oc-gray-6 !important;
+}
+
+// background-color
+.bg-positive {
+  background-color: $oc-lime-2;
+}
+
+.bg-negative {
+  background-color: $oc-red-2;
+}
+
+// margin, padding
+.u-padding {
+  padding: $mainFontSize / 2 !important;
+}
+
+.u-margin-none {
+  margin: 0 !important;
+}
+
+.u-margin-bottom {
+  margin-bottom: $mainFontSize !important;
+}
+
+.u-margin-bottom-xlarge {
+  margin-bottom: $mainFontSize * 2 !important;
+}
+
+// override
+.reveal pre {
+  font-size: $mainFontSize;
+  font-family: d2coding, nanumgothiccoding, monospace;
+  code {
+    padding: $mainFontSize /2;
+  }
+}

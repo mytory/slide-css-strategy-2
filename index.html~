@@ -1,0 +1,1015 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>유지보수하기 쉬운 CSS 전략</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/mytory.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--<style>-->
+        <!--.reveal aside.notes {-->
+            <!--border: 1px solid #000;-->
+            <!--display: block;-->
+            <!--font-size: 16pt;-->
+            <!--page-break-before: always;-->
+            <!--background-color: white;-->
+            <!--text-align: left;-->
+            <!--padding: 1em;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <p class="text-left  color-muted">WSConf.Seoul 2016</p>
+            <h1>
+                유지보수하기 쉬운 <br> CSS 전략
+            </h1>
+
+            <p class="text-right  color-muted"><strong>안형우</strong> 노동자 연대</p>
+            
+            <aside class="notes" data-markdown>
+                제목을 좀더 일반적인 것으로 바꾸었다.
+                상속을 활용하는 것과 OOCSS의 기본 원리와 도구, 그리고 프리프로세서를 다룬다.
+            </aside>
+        </section>
+
+        <section>
+            <h1>Best Practice?</h1>
+
+            <dl>
+                <dt>계층적 선택자</dt>
+                <dd>CSS의 <strong>C</strong>ascade</dd>
+                <dt>시맨틱</dt>
+                <dd>
+                    콘텐츠의 성격을 반영하는 클래스명
+                    <small>모양 X</small>
+                </dd>
+            </dl>
+            
+            <p>&rarr; 실제 개발에서는 문제를 낳음</p>
+            
+            <aside class="notes" data-markdown>
+                시맨틱은 CSS 스펙에 나옴.
+                "… 작성자는 콘텐츠의 성격(nature)을 설명하는 [클래스 속성] 값을 사용하는 편이 좋다. 콘텐츠 모양이 어떻게 표시되길 바라는가를 설명하는 값을 사용하는 것은 좋지 않다."
+
+                계단에 따라 적용할 규칙을 덮어쓸 수 있다는 점때문에 불필요하게 많은 선택자가 사용된다.
+            </aside>
+        </section>
+
+        <section>
+            <h2>계층적 선택자</h2>
+            <pre class="text-large"><code class="css">.issue { ... }
+.issue h2 { ... }
+#intro h1 { ... }
+#intro .main { ... }
+#intro .main h1 { ... }</code></pre>
+
+            <p class="color-muted">한 화면에 담으려고 한 줄로 썼습니다.</p>
+
+            <aside class="notes" data-markdown>
+                이런 식의 예제가 많다. id, class, tag를 모두 배워야 하고 계층형도 배워야 한다. 학습으로선 괜찮다.
+            </aside>
+        </section>
+        <section>
+            <h2>권장사항이 우리 목을 조르고 있다</h2>
+
+            <blockquote class="color-muted">
+                <p>
+                    Our CSS best practice are killing us.
+                    <br>
+                    <small>
+                        <a target="_blank" rel="noopener"
+                           href="http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/">
+                            by Nicole Sullivan
+                        </a>
+                    </small>
+                </p>
+            </blockquote>
+            <pre class="text-medium"><code class="css">.issue h2 { ... }
+.issue ul { ... }
+.issue ul li a { ... }
+.issue ul a.more { ... }
+.news h2 { ... }
+.latest h2 { ... }
+.related h2 { ... }</code></pre>
+
+            <aside class="notes" data-markdown>
+                - 새 클래스명마다 딸린 자식들을 정의해야.
+                - 반복
+                - 중복
+                - 정리하고 싶지만 찾기는 귀찮고, 정리해도 시간든다.
+            </aside>
+        </section>
+
+        <section id="sniper" data-background="images/sniper.jpg">
+            <h2 class="text-outline  u-margin-bottom-xlarge">저격형 선택자</h2>
+
+            <pre class="text-medium"><code class="css">.issue h2 { ... }
+.issue ul { ... }
+.issue ul li a { ... }
+.issue ul a.more { ... }
+.news h2 { ... }
+.news ul { ... }
+.news ul li a { ... }
+.news ul a.more { ... }
+.latest h2 { ... }
+.latest ul { ... }
+.latest ul li a { ... }
+.latest ul a.more { ... }
+.related h2 { ... }
+.related ul { ... }
+.related ul li a { ... }
+.related ul a.more { ... }
+#sidebar .issue h2 { ... }
+#sidebar .news h2 { ... }
+#sidebar .issue ul { ... }
+#sidebar .latest h2 { ... }
+#sidebar .related h2 { ... }
+#article-footer .issue h2 { ... }
+#article-footer .news h2 { ... }
+#article-footer .issue ul { ... }
+#article-footer .issue ul li a { ... }
+#article-footer .issue ul a.more { ... }
+#article-footer .latest h2 { ... }
+#article-footer .related h2 { ... }</code></pre>
+
+            <aside class="notes" data-markdown>
+                저격형 선택자. 엄청나게 비효율적이다.
+
+                문서의 구조를 담으려는 노력도 보인다.
+
+                1. 새 페이지, 요소마다 추가
+                2. 중복
+                3. 선택자 점수 전쟁
+                4. CSS 용량 증가 -> 성능에 악영향
+                5. 불필요한 코드 삭제에 번거롭다
+            </aside>
+        </section>
+
+        <section>
+            <h2>
+                <ruby>C
+                    <rt>cascade</rt>
+                </ruby>
+                는 잘못이 없다
+            </h2>
+
+            <pre><code class="css">@import 'nomalize.css';
+html {
+  font-size: 100%;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'KopubDotum', sans-serif;
+  ...
+}
+</code></pre>
+
+            <p>기본 스타일을 갖추고 출발할 수 있게 해 준다.</p>
+
+
+            <aside class="notes" data-markdown>
+                캐스캐이드는 한 요소에 같은 규칙이 적용됐을 때 어떤 규칙을 우선해서
+                적용할 것인지 가려 주는 놈이다.
+
+                이 말은, 상속 받은 규칙과 해당 요소에 바로 적용된 규칙 사이에서도 작용.
+                만약 상속 받은 규칙이라는 것이 존재하지 않는다면 캐스캐이드의 역할은
+                매우 줄어들 것이다.
+
+                오히려 엄청나게 세부적으로 스타일을 지정해야 하는 문제가 벌어진다.
+
+                그런데 저격형 선택자는 마치 상속이 없는 것처럼 사용하는 선택자다.
+                캐스캐이드는 지나치게 활용한 결과 캐스캐이드가 없는 것처럼 행동하게 된 것이다.
+                캐스캐이드를 잘 활용하려면 기본 스타일을 잘 지정한다는 것을 의미한다.
+            </aside>
+
+
+        </section>
+
+        <section>
+            <h2>
+                <ruby>폭포<rt>Cascade</rt></ruby>처럼 흐르게 하고<br>필요한 놈만 저격하자
+            </h2>
+
+            <pre><code class="css">input, textarea {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}</code></pre>
+
+            <aside class="notes" data-markdown>
+                `input`, `textarea`는 위 세 요소를 상속받지 않는다. 그래서 상속을 받도록 지정해 줬다.
+                이렇게 지정한 이후부터는 다시 `input`, `textarea`에 대해서 신경쓸 필요가 없어지는 것이다.
+
+                캐스캐이드의 기본 뜻은 폭포다. 속성 정의가 폭포처럼 흐르게 하면서 세부적인 물길만 조정해
+                주는 것이 기본적으로 익혀야 할 기법이다.
+            </aside>
+
+        </section>
+
+        <section>
+            <h1 class="u-margin-bottom">클래스명은 내용을 설명해야 하는가?</h1>
+
+            <p>CSS의 시맨틱 ≠ 내용의 시맨틱</p>
+
+            <p class="text-right">
+                <a href="http://mytory.net/2016/12/02/about-html-semantics-front-end-architecture.html">by 니콜라스 갤러거</a>
+            </p>
+
+            <aside class="notes" data-markdown>
+                내용 그대로.
+            </aside>
+        </section>
+
+        <section>
+            <dl class="text-large">
+                <dt class="color-highlight">내용 시맨틱</dt>
+                <dd class="u-margin-bottom">검색엔진, 사람이 참조<br><span class="color-muted">&rarr; HTML, Microdata</span></dd>
+                <dt class="color-highlight">개발 시맨틱</dt>
+                <dd>개발자가 참조<br><span class="color-muted">&rarr; CSS 클래스명</span></dd>
+            </dl>
+
+            <aside class="notes" data-markdown>
+                1. 내용의 시맨틱을 위해서는 마크업과 마이크로데이터를 신경써라. 검색엔진과 사람을 위한 것이다.
+                2. CSS는 개발자가 주 사용자다. 개발자를 위한 시맨틱을 신경써야 한다.
+            </aside>
+        </section>
+
+        <section>
+            <pre class="text-large"><code class="html">&lt;h2>뉴스&lt;/h2>
+&lt;ul class="news">
+  ...</code></pre>
+            <pre class="text-large"><code class="html">&lt;h2>뉴스&lt;/h2>
+&lt;ul class="simple-list">
+  ...</code></pre>
+
+            <aside class="notes" data-markdown>
+                1. `.news`: 뉴스에만 사용할 수 있고, 정보는 내용에서 도출된다.
+                2. `.simple-list`: 비슷한 형태라면 어디서나 재사용할 수 있고, 어떤 목적으로 사용하는 클래스인지 개발자에게 정보를 준다.
+            </aside>
+        </section>
+
+        <section data-background-image="images/kind-of-lego-block.jpg">
+            <div class="text-box">
+                <h1>
+                    <ruby>OOCSS <rt>Object Oriented CSS</rt></ruby>
+                </h1>
+
+                <p class="text-right">
+                    <small>
+                        by 니콜 설리반, 2009
+                    </small>
+                </p>
+
+                <ul>
+                    <li>골격과 겉모양을 분리
+                        <small>Separate Structure and Skin</small>
+                    </li>
+                    <li>컨테이너와 내용물을 분리
+                        <small>Separate Container and Content</small>
+                    </li>
+                </ul>
+            </div>
+
+            <aside class="notes" data-markdown>
+                - 객체 지향 CSS: 객체라는 것은 추상화했다는 것이다.
+                - 이하 내용 같음.
+            </aside>
+
+        </section>
+
+
+
+
+        <section>
+            <p class="color-muted">원칙1. 골격과 겉모양을 분리</p>
+
+<pre class="text-medium"><code class="css">.primary-button {
+    line-height: 20px;
+    background-color: blue;
+    ...
+}</code></pre>
+
+<pre class="text-medium"><code class="css">.danger-button {
+    line-height: 20px;
+    background-color: red;
+    ...
+}</code></pre>
+
+            <aside class="notes" data-markdown>
+                높이 반복, 색깔은 각각.
+            </aside>
+
+        </section>
+
+
+
+        <section data-background-image="images/separate-structure-and-skin.jpg">
+            <a target="_blank" href="images/separate-structure-and-skin.jpg" class="color-muted">.</a>
+
+            <aside class="notes" data-markdown>
+                이렇게 분리.
+            </aside>
+        </section>
+
+
+
+
+        <section>
+            <p class="color-muted">원칙1. 골격과 겉모양을 분리</p>
+<pre class="text-medium"><code class="css">.button {
+    line-height: 20px;
+    ...
+}
+</code></pre>
+<pre class="text-medium"><code class="css">.button-primary {
+    background-color: blue;
+}
+.button-danger {
+    background-color: red;
+}
+</code></pre>
+
+            <aside class="notes" data-markdown>
+                버튼 종류가 많아질수록 이런 방식이 유리하다.
+            </aside>
+
+        </section>
+
+        <section>
+            <p class="color-muted">원칙2. 컨테이너와 내용물을 분리</p>
+
+<pre class="css"><code>#article h2 { font-size: 24px; }
+#article h3 { font-size: 20px; }
+#sidebar h2 { font-size: 20px; }
+#sidebar h3 { font-size: 16px; }
+#footer h2 { font-size: 16px; }
+#footer h3 { font-size: 14px; }</code></pre>
+
+            <aside class="notes" data-markdown>
+                2011년 알렉사 탑 1,000 사이트 평균 font-size 889번 정의.
+            </aside>
+
+        </section>
+
+        <section>
+            <p class="color-muted">원칙2. 컨테이너와 내용물을 분리</p>
+
+<pre class="css"><code>.u-h2 { font-size: 24px; }
+.u-h3 { font-size: 20px; }
+.u-h4 { font-size: 16px; }
+.u-h5 { font-size: 14px; }
+</code></pre>
+
+<pre><code class="html"><article class="content">
+    <h2 class="u-h3">...</h2>
+</article>
+
+<footer class="site-footer">
+    <h1 class="u-h3">...</h1>
+</footer></code></pre>
+
+            <aside class="notes" data-markdown>
+                2011년 페이스북은 이런 식으로 heading 정의를 958개에서 25개로 줄임.
+            </aside>
+        </section>
+
+        <section data-background-image="images/facebook-image-block.jpg">
+            <div class="fragment  text-box">
+                <h2><code>.media</code> 객체</h2>
+
+<pre><code class="hljs  nohighlight" data-noescape>&lt;div class="<mark>media</mark>  attribution">
+
+    &lt;a class="<mark>img</mark>" href="...">
+        &lt;<mark>img</mark> src="..." alt="...">
+    &lt;/a>
+
+    &lt;div class="<mark>bd</mark>">...&lt;/div>
+
+&lt;/div></code></pre>
+
+                <p class="text-small  text-right"><a target="_blank" rel="noopener"
+                                                     href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/">
+                    by 니콜 설리반, The media object saves hundreds of lines of code
+                </a></p>
+            </div>
+
+            <aside class="notes" data-markdown>
+                니콜 설리반이 OOCSS와 함께 소개한 미디어 객체.
+
+                좌측혹은 우측에 이미지가 있고, 그 이미지를 파고 들어가지 않는 바디를 만들기 위한 것.
+                페이스북의 사이트에서 이런 반복은 엄청나게 많았다.
+
+                페이스북 사이트에 OOCSS를 적용한 결과 CSS용량을 44% 줄일 수 있었다고 한다.
+            </aside>
+        </section>
+
+        <section data-background-image="images/facebook-image-block.jpg">
+            <div class="text-box">
+                <h2><code>.media</code> 객체</h2>
+<pre><code class="css">.media {
+  margin: 10px;
+}
+.media, .bd {
+  overflow: hidden;
+}
+.media .img {
+  float: left;
+  margin-right: 10px;
+}
+.media .img img {
+  display: block;
+}
+.media .imgExt {
+  float: right;
+  margin-left: 10px;
+}</code></pre>
+            </div>
+
+            <aside class="notes" data-markdown>
+                클래스 세 개와, 요소 하나를 정의함.
+            </aside>
+
+        </section>
+
+        <section>
+            <h2>부트스트랩의 <code>.btn</code> 객체</h2>
+
+            <p><img src="images/bootstrap-button-1.jpg" alt=""></p>
+<pre><code class="html">&lt;button class="btn  btn-primary"></code></pre>
+
+            <aside class="notes" data-markdown>
+                내용 그대로
+            </aside>
+
+        </section>
+
+        <section>
+            <h2>부트스트랩의 <code>.btn</code> 객체</h2>
+
+            <p><img src="images/bootstrap-button-2.jpg" alt=""></p>
+<pre><code class="html">&lt;button class="btn  btn-lg  btn-primary"></code></pre>
+
+            <aside class="notes" data-markdown>
+                내용 그대로
+            </aside>
+
+        </section>
+
+        <section>
+            <h1>OOCSS의 도구</h1>
+
+            <ul>
+                <li>특정도(Specificity) 평준화</li>
+                <li>태그 선택자 사용 자제</li>
+                <li>재사용성을 확보하는 이름</li>
+                <li>기본 객체를 갖추자</li>
+                <li>타이포그라피 전략을 세우자</li>
+            </ul>
+
+            <p>등</p>
+
+            <aside class="notes" data-markdown>
+                도구는 더 있지만.
+            </aside>
+        </section>
+
+
+        <section>
+            <p class="color-muted">
+                도구1.
+                <ruby>특정도<rt>Specificity</rt></ruby> 평준화
+            </p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>id</th>
+                    <th>class</th>
+                    <th>tag</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-negative">
+                    <th scope="row"><code>#sidebar h2</code></th>
+                    <td><b>1</b></td>
+                    <td>0</td>
+                    <td>1</td>
+                </tr>
+                <tr class="bg-negative">
+                    <th scope="row"><code>.box.bordered</code></th>
+                    <td>0</td>
+                    <td><b>2</b></td>
+                    <td>0</td>
+                </tr>
+                <tr class="bg-positive">
+                    <th scope="row"><code>.u-h2</code></th>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                <tr class="bg-positive">
+                    <th scope="row"><code>.bordered</code></th>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p class="color-muted  text-small">자세하게 알고 싶으면 MDN의
+                <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank" rel="noopener">명시도</a> 참고</p>
+
+            <aside class="notes" data-markdown>
+                특정도는 캐스캐이드가 적용할 규칙의 우선순위를 가릴 때 사용하는 점수를 뜻한다.
+                id가 class와 태그를 이긴다. 그런데 id나 연이은 클래스를 사용하게 되면 문제 생긴다.
+                `#sidebar h2`로 지정한 것때문에 `h2`에는 다른 클래스의 규칙이 먹지 않는다.
+
+                1. 앞서 적용한 규칙이 뒤에서 적용한 규칙을 덮어쓴다. 특정도 전쟁이 벌어진다.
+                2. 방금 적용한 규칙이 어떤 규칙 때문에 적용이 안 되는지 일일이 찾아서 바꿔야
+                   하므로 유지보수에 시간이 많이 든다.
+                3. 규칙을 덮어쓰기 위해 더 높은 특정도를 만들어야 하므로 불필요한 선택자가 많아지고,
+                   이것은 또다시 특정도 전쟁을 유발한다.
+
+                따라서, `ID`를 선택자로 사용하진 말자. 책갈피와 js 훅에 사용하자.
+            </aside>
+
+        </section>
+
+
+        <section>
+            <p class="color-muted">도구2. 클래스와 태그 선택자를 결합하지 말자</p>
+            <h2><code><span class="fragment fade-out">ul</span>.nav</code></h2>
+            <h2><code><span class="fragment fade-out">div</span>.box</code></h2>
+
+            <aside class="notes" data-markdown>
+                예외
+
+                1. 해당 태그에만 붙여야 하는 경우
+                2. 특정 태그에 붙였을 때 추가 표현을 해야 하는 경우
+            </aside>
+
+        </section>
+
+
+
+        <section>
+            <p class="color-muted">도구2. 넓은 범위에 자손 태그 선택자를 사용하지 말자</p>
+            <h2><code>.title span</code></h2>
+
+<pre><code class="html"><header class="title">
+    박근혜는
+    <span>즉각</span>
+    퇴진하라
+</header></code></pre>
+
+            <aside class="notes" data-markdown>
+                span은 다른 용도로도 추가될 수 있는데, span의 속성을 상속하게 된다.
+            </aside>
+
+        </section>
+
+
+
+
+        <section>
+            <p class="color-muted">도구2. 넓은 범위에 자손 태그 선택자를 사용하지 말자</p>
+            <h2><code>.color-primary</code></h2>
+
+<pre><code class="html"><header class="title">
+    박근혜는
+    <b class="color-primary">즉각</b>
+    퇴진하라
+</header></code></pre>
+
+            <aside class="notes" data-markdown>
+                내용 그대로. 타이포그라피는 나중에 설명.
+            </aside>
+
+        </section>
+
+
+
+        <section>
+            <p class="color-muted">도구1~2. 특정도와 태그 선택자</p>
+
+<pre><code class="css">.btn { ... }
+.uilist a { ... }</code></pre>
+
+<div class="fragment">
+<pre><code class="html">&lt;nav class="uilist">
+    &lt;a>소개&lt;/a>
+    &lt;a class="btn">로그인&lt;/a>
+&lt;/nav></code></pre>
+</div>
+            <p class="color-muted  text-small  text-right"><code>href</code> 속성은 생략했습니다.</p>
+            <aside class="notes">
+                모든 <code>a</code>에 적용 -> 덮어쓰게 된다.
+            </aside>
+        </section>
+
+
+        <section>
+            <p class="color-muted">도구1~2. 특정도와 태그 선택자</p>
+
+
+<pre><code class="css">.btn { ... }
+.uilist-item { ... }</code></pre>
+
+<div class="fragment">
+<pre><code class="html">&lt;nav class="uilist">
+    &lt;a class="uilist-item">소개&lt;/a>
+    &lt;span class="uilist-item">
+        &lt;a class="btn">로그인&lt;/a>
+    &lt;/span>
+&lt;/nav></code></pre>
+
+
+</div>
+    <aside class="notes">
+        <p>코드는 좀 늘어도 일관성 유지.</p>
+    </aside>
+        </section>
+
+
+
+<section>
+    <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
+
+    <h2><code class="bg-negative">.blue-title</code></h2>
+    <h2><code class="bg-positive">.text-primary</code></h2>
+
+    <aside class="notes" data-markdown>
+        `.blue-title`이어야 하는 경우도 있을 테지만 대체로는 아니다. 변동 가능성이 있다면 좀더 추상적인 이름으로 하자.
+    </aside>
+
+</section>
+
+
+        <section>
+            <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
+            <h2><code class="bg-negative">.bottom-items</code></h2>
+            <h2><code class="bg-positive">.cards</code></h2>
+
+            <aside class="notes" data-markdown>
+                - 특정 모양이나 위치에 기반한 이름은 일단 피하자.
+                - 모양의 특성을 드러내면서도 종속적이지 않은 이름을 지어야 재사용성이 높아진다.
+                - 다른 개발자가 다른 용도로 사용할 때 사용할 수 있을 것인지를 생각하자.
+            </aside>
+
+        </section>
+
+
+<section>
+    <p class="color-muted">도구4. 기본 객체를 갖추자</p>
+
+    <h2>그리드, 헤딩, 링크, 목록, 버튼, <br>미디어, 테이블, 타이포...</h2>
+
+    <aside class="notes" data-markdown>
+        각각을 설명
+    </aside>
+
+
+</section>
+
+
+<section>
+    <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
+
+    <ul>
+        <li>기본 <strong>글꼴, 크기, 색</strong>을 태그 선택자에 지정</li>
+        <li>Hx <strong>글꼴, 크기, 색</strong>을 헤딩 선택자에 지정</li>
+        <li>사용할 <strong>글꼴, 크기, 색</strong> 유틸리티 클래스</li>
+    </ul>
+
+    <p>객체에서의 폰트 지정은 최소화</p>
+
+    <aside class="notes" data-markdown>
+        내용 그대로
+    </aside>
+</section>
+
+
+
+<section data-background-image="images/typo-page.jpg">
+    <aside class="notes" data-markdown>
+        제작중인 사이트다. 다양한 글자 크기, 모양, 색이 있다.
+    </aside>
+</section>
+
+
+
+<section data-background-image="images/typo-page.jpg">
+    <p class="color-muted  text-box">도구5. 타이포그라피 전략을 세우자</p>
+    <img src="images/typo.jpg" alt="글자 크기 파편화가 너무 심하다">
+
+    <aside class="notes" data-markdown>
+        1. 가장 작은 사이즈는 통일하는 쪽으로
+        2. 작은 사이즈도 통일하는 쪽으로
+        3. 디자이너와 토론해야 한다. 물론 안 되면 어쩔 수 없다.
+    </aside>
+</section>
+
+
+
+<section>
+    <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
+    <h2>
+        유틸리티 클래스 활용
+    </h2>
+<pre><code class="css">/* text align */
+.u-text-right
+.u-text-center
+
+/* font size */
+.u-text-tiny
+.u-text-small
+.u-text-large
+
+/* font color */
+.u-color-primary
+.u-color-secondary
+.u-color-muted
+.u-color-highlight
+
+/* remove underline */
+.u-text-no-deco
+</code></pre>
+
+    <aside class="notes" data-markdown>
+        중복 방지용이다.
+    </aside>
+
+</section>
+
+
+
+
+<section>
+    <h1>사례</h1>
+</section>
+
+<section data-background-image="images/line-object.jpg">
+<div class="text-box  fragment">
+<pre><code class="sass">.separator {
+  border: none;
+  border-bottom-width: 1px;
+}
+.separator--color-default
+.separator--color-secondary</code> </pre>
+</div>
+
+</section>
+
+
+
+
+<section>
+    <p>높이 고정 없이 균일 높이</p>
+    <img src="images/flex-grid-1.jpg" alt="하단 관련기사">
+</section>
+
+
+
+
+
+<section data-background-image="images/flex-grid-sketch.jpg">
+    <a target="_blank" href="images/flex-grid-sketch.jpg" class="color-muted">.</a>
+</section>
+
+
+
+
+
+<section>
+    <p>제목 부분 처리</p>
+
+<pre><code class="html"><h2 class="u-color-secondary">
+    이슈 :
+    <a class="u-color-inherit">
+        노동자 운동
+    </a>
+</h2></code></pre>
+</section>
+
+
+        <section>
+            <p><code>.flex-grid</code> + <code>.title</code> + utilities</p>
+<pre><code class="html" data-noescape>&lt;div class="<mark>flex-grid</mark>">
+&lt;a class="<mark>flex-grid-item</mark>  u-3/12">
+  &lt;img/>
+  &lt;header class="<mark class="bg-positive">title</mark>  <mark class="bg-positive">title-one-line</mark>">
+    &lt;p class="u-h3  u-color-sub">...&lt;/p>
+    &lt;h1 class="u-h3">...&lt;/h1>
+  &lt;/header>
+&lt;/a>
+&lt;/div>
+...</code></pre>
+
+            <p class="color-muted  text-small">배경색 담당 div를 뺐기 때문에 작동하는 코드는 아닙니다.</p>
+        </section>
+
+
+
+        <section>
+            <p>재사용</p>
+            <img src="images/flex-grid-2.jpg" alt="지난 호 목록">
+        </section>
+
+
+
+        <section>
+            <h2>객체의 범위는<br>어떻게 정해야 할까?</h2>
+            
+            <ul>
+                <li>제한된 역할을 담당하는</li>
+                <li>관련된 코드들을</li>
+                <li>재사용을 염두에 두고</li>
+                <li>추상화해 묶는다</li>
+            </ul>
+        </section>
+
+
+
+
+<section>
+    <h1>목적은 생산성</h1>
+    <p>예외</p>
+</section>
+
+
+
+<section data-background-image="images/ckeditor.jpg">
+    <div class="text-box">
+        <p class="color-muted">예외</p>
+        <h2>에디터가 생산한 코드 <br> <code>.content h2</code></h2>
+    </div>
+</section>
+
+
+
+<section data-background-image="images/bxslider.jpg">
+    <div class="text-box">
+        <p class="color-muted">예외</p>
+        <h2>선택자에 개입하지<br>못하는 라이브러리</h2>
+    </div>
+</section>
+
+
+
+<section>
+    <p class="color-muted">예외라기보단...</p>
+    <h2>모든 것을 모듈화해<br>재사용해야 하는가?</h2>
+    <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+</section>
+
+
+
+
+<section data-markdown>
+    # 목적을 되새기자
+
+    오용 방지
+</section>
+
+
+<section>
+    <p class="color-muted">오용1. Sniping Type에서 Snake Type으로...</p>
+    <h3 class="u-margin-bottom">CSS에 문서 구조를 담는 것은<br>목적이 아니다</h3>
+
+    <pre><code class="css">#article-footer .issue ul a.more</code></pre>
+    <p>&darr;</p>
+    <pre><code class="css">.article-footer_issue_ul_a_more</code></pre>
+</section>
+
+
+
+        <section data-background-image="images/small-legos.jpg">
+
+            <h3 class="text-box" style="display: inline-block;">오용2</h3>
+
+            <div class="text-box  text-box--less-transparent  fragment">
+                <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code></p>
+            </div>
+
+        </section>
+
+
+
+
+        <section>
+            <h1>더 배우기</h1>
+
+            <ul>
+                <li>Sass, Less 같은 <strong>전처리기</strong></li>
+                <li>BEM 같은 <strong>작명 기법</strong></li>
+                <li>CSS <strong>프레임워크</strong></li>
+            </ul>
+
+            <aside class="notes" data-markdown>
+                - BEM은 다음 세션에서
+                - CSS 프레임워크는 검색해 보시라.
+
+                여기선 전처리기만 잠깐 설명하고 넘어 가려고 한다.
+            </aside>
+        </section>
+
+
+        <section>
+            <h2><ruby>전처리기 <rt>Preprocessor</rt></ruby>의 이점</h2>
+
+            <img src="images/preprocessor-split-file.png" alt="파일을 나눌 수 있다">
+            <img src="images/preprocessor-subset.png" alt="일부만 빼서 새 CSS 만들 수 있다 - 원 소스 멀티 유즈">
+
+            <p>+ minify, 변수, 함수, 확장, 재사용성</p>
+
+            <aside class="notes" data-markdown>
+                (이미지를 보고 할 말)
+
+                - 파일을 나누면 장점
+                    - 코드 연관성 증가
+                    - 중복 제거 용이
+                    - 필요없는 코드 제거 용이
+                - 파일을 합칠 수 있다
+            </aside>
+        </section>
+
+
+
+
+
+        <section data-markdown>
+            ## CSS 방법론
+
+            - [CSS Wizardry](http://csswizardry.com)
+            - [Stubbornella](http://www.stubbornella.org/)
+            - [SMACSS](https://smacss.com/)([번역서](http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=75606071))
+            - [Smashing Magazine](https://www.smashingmagazine.com/tag/css/)
+        </section>
+
+
+
+
+        <section>
+            <h1 style="font-weight: normal;">
+                <strong>원칙</strong>에 기반해
+                <br>
+                <strong>사람</strong>과 토론한다
+            </h1>
+        </section>
+
+
+
+
+        <section>
+            <h2>더 이야기하고 싶다면...</h2>
+
+            <ul>
+                <li><code>http://mytory.net</code></li>
+                <li><code>mail@mytory.net</code></li>
+            </ul>
+
+            <p class="color-muted">이 프리젠테이션은<br>제 블로그에서 다시 보실 수 있습니다.</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
