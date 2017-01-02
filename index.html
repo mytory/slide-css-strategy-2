@@ -168,7 +168,7 @@
             <blockquote>
                 <p>
                     <strong>케스케이드</strong>는 주어진 속성과 요소에 선언된 값 목록을 순서없이 취해서,
-                    아래 규칙*대로 그 선언을 우선순위에 따라 정렬하고, 하나의 케스케이드된 값을 출력한다.
+                    아래 규칙<sup>*</sup>대로 그 선언을 우선순위에 따라 정렬하고, 하나의 케스케이드된 값을 출력한다.
                 </p>
 
                 <p>- <a href="https://www.w3.org/TR/css3-cascade/#cascading">CSS3 스펙</a></p>
@@ -263,7 +263,8 @@ html {
         </section>
 
         <section>
-            <h2>내용 시맨틱의 중요성</h2>
+            <h2>내용 시맨틱</h2>
+            <p><strong>구조</strong>와 표현을 분리 &rarr; 구조에 해당</p>
         </section>
 
         <section data-background-image="images/semantic-html.png">
@@ -321,9 +322,57 @@ html {
 
 
         <section>
-            필자 표시 <code>address</code>
+            <h2><code>address</code> 태그</h2>
+
+            <pre><code class="html">&lt;address&gt;
+  서울시 구로구 디지털로 ...
+&lt;/address&gt;</code></pre>
+
+            <p>올바로 사용한 것일까요?</p>
+
+            <aside class="notes">
+                <p>맥락에 따라 다르다. 문서의 작성자에게 연락하기 위한 주소라면 옳게 사용한 것이고, 그냥 임의의 주소라면
+                틀리게 사용한 것이다.</p>
+            </aside>
         </section>
 
+        <section>
+            <h2><code>address</code> 태그</h2>
+
+            <blockquote cite="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">
+                <p>
+                    <em>HTML <code>Address</code> 요소</em> (<strong>&lt;address&gt;</strong>) 는 작성자가 가까운
+                    <a class="new" href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/article"
+                       title="This article hasn't been written yet. Please consider contributing!">
+                        <code>&lt;article&gt;</code></a> 또는
+                    <a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/body"
+                       title="HTML Body 요소 (<body>) 는 HTML 문서의 내용을 나타냅니다.&nbsp; 한 문서에 오직 하나의 <body> 요소만이 존재할수 있습니다."><code>&lt;body&gt;</code></a>에
+                    대한 연락처 정보를 제공하기 위해 사용합니다; 후자의 경우에는 문서 전체에 적용됩니다.
+                </p>
+                <p><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">- MDN</a></p>
+            </blockquote>
+        </section>
+
+        <section>
+            <h2><code>address</code> 태그</h2>
+
+            <blockquote cite="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">
+                <ul>
+                    <li>연락처 정보와 관련없는 임의의 주소를 나타내려면&nbsp;<code>&lt;address&gt;</code> 요소 대신에 <a class="new" href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/p" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;p&gt;</code></a> 요소를 사용하세요.</li>
+                    <li>작성일과 같이 연락처와 관련 없는 정보를 포함해서는 안됩니다.(이 경우에는 <a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/time" title="HTML <time> 요소는 24시간 시각이나 정확한 그레고리력 날짜를 나타냅니다. (선택적으로 시간과 타임존 정보가 함께 들어갈수 있습니다.)"><code>&lt;time&gt;</code></a> 요소를 사용하세요).</li>
+                    <li>전형적으로 <code>&lt;address&gt;</code> 요소는 현재 섹션의 <a class="new" href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/footer" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;footer&gt;</code></a> 내부에 위치되곤 합니다.</li>
+                </ul>
+                <p><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">- MDN</a></p>
+            </blockquote>
+        </section>
+
+        <section>
+            <h2>페이스북 인스턴트 아티클</h2>
+            <pre><code class="html">&lt;!-- The author of your article --&gt;
+&lt;address&gt;
+  Instant Articles Team
+&lt;/address&gt;</code></pre>
+        </section>
 
         <section>
             <h2>개발 시맨틱</h2>
@@ -371,6 +420,387 @@ html {
             <aside class="notes" data-markdown>
                 - 객체 지향 CSS: 객체라는 것은 추상화했다는 것이다.
                 - 이하 내용 같음.
+            </aside>
+
+        </section>
+
+
+        <section>
+            <h2><code>font-size</code> 369</h2>
+            <pre><code class="hljs nohighlight">./view_text.css: font-size: 14px;
+./view_text.css: font-size: 13px;
+./view_text.css: font-size: 20px;
+./view_text.css: font-size:12px;
+./popup-notice.css: font-size: 13px;
+./popup-notice.css: font-size: 15px;
+./popup-notice.css: font-size: 13px;
+./exceptions.css: font-size: 16px;
+./exceptions.css: font-size: 1em;
+./exceptions.css: font-size: 18px;
+./exceptions.css: font-size: 12px;
+./oldies_cover.css: font-size: 0.9em;
+./oldies_cover.css: font-size: 0.8em;
+./oldies_cover.css: font-size: 0.8em;
+./oldies_cover.css: font-size: 0.8em;
+./oldies_cover.css: font-size: 0.8em;
+./oldies_cover.css: font-size: 0.9em;
+./oldies_cover.css: font-size: 20px;
+./oldies_cover.css: font-size: 1.2em;
+./subscribe.css: font-size: 14px;
+./subscribe.css: font-size: 1.8em;
+./subscribe.css: font-size: 12px;
+./subscribe.css: font-size: 0.8em;
+./subscribe.css: font-size: 14px;
+./subscribe.css: font-size: 1em;
+./subscribe.css: font-size: 12px;
+./subscribe.css: font-size: 1em;
+./subscribe.css: font-size: 13px;
+./subscribe.css: font-size: 18px;
+./subscribe.css: font-size: 18px;
+./subscribe.css: font-size: 15px;
+./column.css: font-size: 13px;
+./column.css: font-size: 13px;
+./column.css: font-size: 14px;
+./column.css: font-size: 12px;
+./column.css: font-size:12px;
+./column.css: font-size:12px;
+./column.css: font-size: 12px;
+./column.css: font-size: 12px;
+./column.css: font-size: 12px;
+./column.css: font-size: 12px;
+./column.css: font-size: 12px;
+./subject-list.css: font-size: 12pt;
+./news_all_online.css: font-size:12px;
+./news_all_online.css: font-size: 12px;
+./news_all_online.css: font-size: 11px;
+./oldies_list.css: font-size: 1.1em;
+./oldies_list.css: font-size: 0.8em;
+./oldies_list.css: font-size: 1.2em;
+./oldies_list.css: font-size:17px;
+./oldies_list.css: font-size: 0.8em;
+./oldies_list.css: font-size: 0.9em;
+./oldies_list.css: font-size:12px;
+./oldies_list.css: font-size: 11px;
+./oldies_list.css: font-size: 12px;
+./oldies_list.css: font-size: 1.2em;
+./css3Button.css: font-size: 12px;
+./css3Button.css: font-size: 11px;
+./outlet-info.css: font-size: 13px;
+./view-for-fckeditor.css: font-size: 25px;
+./view-for-fckeditor.css: font-size: 18px;
+./view-for-fckeditor.css: font-size: 15px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size:13px;
+./view-for-fckeditor.css: font-size: 14px;
+./view-for-fckeditor.css: font-size: 14px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size:12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 18px;
+./view-for-fckeditor.css: font-size: 15px;
+./view-for-fckeditor.css: font-size: 13px;
+./view-for-fckeditor.css: font-size: 13px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size:12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 12px;
+./view-for-fckeditor.css: font-size: 13px;
+./view-for-fckeditor.css: font-size: 0.8em;
+./view-for-fckeditor.css: font-size: 16px;
+./view-for-fckeditor.css: font-size: 14px;
+./view-for-fckeditor.css: font-size: 14px;
+./support.css: font-size: 13px;
+./support.css: font-size: 14px;
+./support.css: font-size: 1em;
+./support.css: font-size: 12px;
+./support.css: font-size: 13px;
+./support.css: font-size: 14px;
+./support.css: font-size: 18px;
+./support.css: font-size: 15px;
+./support.css: font-size: 30px;
+./support.css: font-size: 18px;
+./support.css: font-size: 0.9em;
+./support.css: font-size: 18px;
+./special_page.css: font-size: 20px;
+./special_page.css: font-size: 16px;
+./special_page.css: font-size: 15px;
+./special_page.css: font-size: 12px;
+./special_page.css: font-size: 12px;
+./special_page.css: font-size: 14px;
+./special_page.css: font-size: 13px;
+./special_page.css: font-size:11px;
+./special_page.css: font-size: 12px;
+./sass/index.sass: font-size: $sub-headline-size * 1.2
+./sass/index.sass: font-size: 18px
+./sass/index.sass: font-size: 0.7em
+./sass/index.sass: font-size: 30px
+./sass/index.sass: font-size: 20px
+./sass/index.sass: font-size: 40px
+./sass/index.sass: font-size: 30px
+./sass/index.sass: font-size: 24px
+./sass/index.sass: font-size: 16px
+./sass/index.sass: font-size: 18px
+./sass/index.sass: font-size: 14px
+./sass/index.sass: font-size: 14px
+./sass/index.sass: font-size: $sub-headline-size
+./sass/index.sass: font-size: .8em
+./sass/index.sass: font-size: 14px
+./sass/index.sass: font-size: 18px
+./sass/index.sass: font-size: 24px
+./sass/index.sass: font-size: 30px
+./sass/index.sass: font-size: 40px
+./sass/index.sass: font-size: 12px
+./sass/index.sass: font-size: 11px
+./sass/index.sass: font-size: 0.75em
+./sass/index.sass: font-size: 12px
+./sass/index.sass: font-size: 13px
+./sass/index.sass: font-size: 12px
+./sass/index.sass: font-size: 14px
+./sass/index.sass: font-size: 13px
+./sass/index.sass: font-size: 13px
+./sass/index.sass: font-size: 14px
+./sass/index.sass: font-size: 13px
+./sass/index.sass: font-size: inherit
+./sass/index.sass: font-size: 0.9em
+./sass/index.sass: font-size: 13px
+./sass/index.sass: font-size: 18px
+./sass/index.sass: font-size: 0.8em
+./sass/index.sass: font-size: .9em
+./sass/index.sass: font-size: 14px
+./sass/ie7.sass: font-size: 14px
+./sass/ie7.sass: font-size: 14px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 11px
+./sass/common.sass: font-size: 17px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 25px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 11px
+./sass/common.sass: font-size: 9px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 11px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 20px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 18px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 0.8em
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 0.8em
+./sass/common.sass: font-size: 0.7em
+./sass/common.sass: font-size: 0.8em
+./sass/common.sass: font-size: 0.9em
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 16px
+./sass/common.sass: font-size: 16px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 16px
+./sass/common.sass: font-size: 13px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 16px
+./sass/common.sass: font-size: 14px
+./sass/common.sass: font-size: 0.8em
+./sass/common.sass: font-size: 15px
+./sass/common.sass: font-size: 12px
+./sass/common.sass: font-size: 1.1em
+./search.css: font-size: 0.8em;
+./search.css: font-size: 18px;
+./search.css: font-size: 0.9em;
+./search.css: font-size: 0.8em;
+./search.css: font-size: 12px;
+./search.css: font-size: 1.2em;
+./search.css: font-size: 13px;
+./search.css: font-size:15px;
+./epub.css: font-size: 2em;
+./epub.css: font-size: 0.85em;
+./epub.css: font-size: .9em;
+./epub.css: font-size: .9em;
+./epub.css: font-size: 0.9em;
+./epub.css: font-size: 1em;
+./list_page.css: font-size: 1.5em;
+./list_page.css: font-size: 1em;
+./list_page.css: font-size: 13px;
+./list_page.css: font-size:12px;
+./news_subject.css: font-size: 12px;
+./news_subject.css: font-size: 12px;
+./news_subject.css: font-size: 1.5em;
+./left21cse.css: font-size: 13px;
+./left21cse.css: font-size: 13px;
+./left21cse.css:  font-size: 18px;
+./left21cse.css: font-size: 1em;
+./left21cse.css: font-size: 16px;
+./left21cse.css: font-size: 0.9em;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 1.3em;
+./common_form.css: font-size: 14px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./common_form.css: font-size: 18px;
+./serial.css: font-size: 16px;
+./serial.css: font-size: 16px;
+./serial.css: font-size: 14px;
+./serial.css: font-size: 12px;
+./serial.css: font-size:12px;
+./serial.css: font-size:12px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 0.8em;
+./serial.css: font-size: 13px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 12px;
+./serial.css: font-size: 12px;
+./feature_issue.css: font-size: 45px;
+./feature_issue.css: font-size: 13px;
+./feature_issue.css: font-size: 18px;
+./feature_issue.css: font-size: 0.9em;
+./article-support.css: font-size: 18px;
+./article-support.css: font-size: 1.2em;
+./issue.css: font-size: 14px;
+./issue.css: font-size:12px;
+./issue.css: font-size: 12px;
+./issue.css: font-size: 12px;
+./issue.css: font-size: 12px;
+./issue.css: font-size: 13px;
+./issue.css: font-size: 13px;
+./issue.css: font-size:12px;
+./issue.css:.new-issue p {font-size: 14px; line-height: 1.8; }
+./issue.css: font-size: 14px;
+./issue.css:  font-size: 1.1em !important;
+./cse.css: font-size: 60px;
+./cse.css: font-size: 18px;
+./cse.css: font-size: 18px;
+./view.css: font-size: 0.7em;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 25px;
+./view.css: font-size: 18px;
+./view.css: font-size: 1.3em;
+./view.css: font-size: 1.1em;
+./view.css: font-size: 14px;
+./view.css: font-size: 12px;
+./view.css: font-size: 16px;
+./view.css: transition: font-size 0.2s;
+./view.css: font-size: 12px;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 12px;
+./view.css: font-size: 1.3em;
+./view.css: font-size: 1.3em;
+./view.css: font-size: 0.95em;
+./view.css: font-size: 13px;
+./view.css: font-size: 14px;
+./view.css: font-size: 12px;
+./view.css: font-size: 12px;
+./view.css: font-size: 12px;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 1em;
+./view.css: font-size: 14px;
+./view.css: font-size: 12px;
+./view.css: font-size: 12px;
+./view.css: font-size: 12px;
+./view.css: font-size: 12px;
+./view.css: font-size: 0.7em;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 13px;
+./view.css: font-size: 0.8em;
+./view.css: font-size: 1em;
+./view.css: font-size: 12px;
+./view.css: font-size: 0.8em;
+./view.css: font-size: 16px;
+./view.css: font-size: 14px;
+./view.css: font-size: 14px;
+./view.css: font-size: 1em;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 14px;
+./view.css: font-size: 12px;
+./view.css: font-size: 1em;
+./view.css: font-size: 1em;
+./view.css: font-size: 1em;
+./view.css: font-size: 0.8em;
+./view.css: font-size: 0.85em;
+./view.css: font-size: 1em;
+./view.css: font-size: .8em;
+./view.css: font-size: 18px;
+./view.css: font-size: .7em;
+./view.css: font-size: 20px;
+./view.css: font-size: 15px;
+./view.css: font-size: 12px;
+./view.css: font-size: 17px !important;
+./view.css: font-size: inherit !important;
+./view.css: font-size: 0.9em;
+./view.css: font-size: 1.3em;
+./view.css: font-size: 12px;
+./print.css: font-size: 11pt;
+./print.css: font-size: 1.5em;
+./print.css: font-size: 1.3em;
+./print.css: font-size: 0.85em;
+./print.css: font-size: 12px;
+./print.css: font-size: 1.2em;
+./print.css: font-size: 9pt;
+./print.css: font-size: 10pt;
+./print.css: font-size: 13pt;
+./print.css: font-size: 15pt;</code></pre>
+
+            <p class="fragment">알렉사 탑 1,000 사이트 <strong>899</strong>(2011)</p>
+
+            <aside class="notes">
+                <p>구 노동자 연대 사이트의 font-size 선언. 데스크톱 CSS에서만 369개를 발견했다. 이런 중복을 제거하기 위한 방법론이다.</p>
             </aside>
 
         </section>
@@ -437,6 +867,8 @@ html {
 #sidebar h3 { font-size: 16px; }
 #footer h2 { font-size: 16px; }
 #footer h3 { font-size: 14px; }</code></pre>
+
+            <p class="color-muted  text-small">한 눈에 보여 주려고 한 줄로 쓴 것뿐, 줄을 바꿔서 한 줄에 속성 하나만 쓰세요.</p>
 
             <aside class="notes" data-markdown>
                 2011년 알렉사 탑 1,000 사이트 평균 font-size 889번 정의.
@@ -525,6 +957,11 @@ html {
         </section>
 
         <section>
+            <h2>페이스북 CSS 용량<br><strong class="text-xlarge">19%</strong><small>(gzip 이후)</small> 감소</h2>
+            <p><a href="https://www.facebook.com/note.php?note_id=307069903919">Making Facebook 2x Faster, 2010-02-19</a></p>
+        </section>
+
+        <section>
             <h2>부트스트랩의 <code>.btn</code> 객체</h2>
 
             <p><img src="images/bootstrap-button-1.jpg" alt=""></p>
@@ -567,7 +1004,7 @@ html {
         </section>
 
 
-        <section>
+        <section id="specificity">
             <p class="color-muted">
                 도구1.
                 <ruby>특정도
@@ -613,6 +1050,7 @@ html {
                 </tbody>
             </table>
 
+            <p>더 높은 특정도 &rarr; 특정도 전쟁 &rarr; 악순환 <br> &rarr; 일일이 찾아야, no ID in CSS</p>
             <p class="color-muted  text-small">자세하게 알고 싶으면 MDN의
                 <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank"
                    rel="noopener">명시도</a> 참고</p>
@@ -746,9 +1184,9 @@ html {
         <section>
             <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
 
-            <h2><code class="bg-negative">.bottom-items</code></h2>
+            <h2><code class="bg-negative">.bottom-item</code></h2>
 
-            <h2><code class="bg-positive">.cards</code></h2>
+            <h2><code class="bg-positive">.image-box</code></h2>
 
             <aside class="notes" data-markdown>
                 - 특정 모양이나 위치에 기반한 이름은 일단 피하자.
@@ -831,6 +1269,9 @@ html {
 
 /* remove underline */
 .u-text-no-deco
+
+/* button like text */
+.u-button-like-text
 </code></pre>
 
             <aside class="notes" data-markdown>
@@ -850,15 +1291,37 @@ html {
   border: none;
   border-bottom-width: 1px;
 }
-.separator--color-default
-.separator--color-secondary</code> </pre>
+.separator--default { ... }
+.separator--secondary { ... }</code> </pre>
             </div>
 
         </section>
 
+        <section data-background-image="images/line-object.jpg">
+            <pre><code class="html">&lt;hr class=&quot;separator
+           separator--default&quot;&gt;</code></pre>
+
+            <aside class="notes">
+                <p><code>hr</code>로 쓰면 될 것 같지만, 의미론적으로 맞지 않다.</p>
+            </aside>
+        </section>
 
         <section>
-            <p>높이 고정 없이 균일 높이</p>
+            <h2>내용 시맨틱</h2>
+
+<pre><code class="html">&lt;div class=&quot;separator
+            separator--default&quot;&gt;
+&lt;/div&gt;</code></pre>
+            <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">
+                <p>
+                    <strong>HTML <code>&lt;hr></code>요소</strong>는 문단 수준 요소들 사이의 주제 구분을 나타냅니다(예를 들면, 이야기에서 장면 변경 또는 섹션 주제의 전환).
+                </p>
+                <p>- <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">MDN</a></p>
+            </blockquote>
+        </section>
+
+        <section>
+            <p><code>height</code> 정의 없이 균일 높이</p>
             <img src="images/flex-grid-1.jpg" alt="하단 관련기사">
         </section>
 
@@ -907,18 +1370,29 @@ html {
             <h2>객체의 범위는<br>어떻게 정해야 할까?</h2>
 
             <ul>
-                <li>제한된 역할을 담당하는</li>
-                <li>관련된 코드들을</li>
-                <li>재사용을 염두에 두고</li>
-                <li>추상화해 묶는다</li>
+                <li>제한된 역할을 담당하는
+                    <span class="fragment  color-muted">&rarr; 얼마나 제한된?</span>
+                </li>
+                <li>관련된 코드들을
+                    <span class="fragment  color-muted">&rarr; 얼마나 관련된?</span>
+                </li>
+                <li>재사용을 염두에 두고
+                    <span class="fragment  color-muted">&rarr; 과연 재사용될까?</span>
+                </li>
+                <li>추상화해 묶는다
+                    <span class="fragment  color-muted">&rarr; 얼마나 추상화할지?</span
+                </li>
             </ul>
+
+            <p class="fragment">사람이 판단</p>
         </section>
 
 
         <section>
             <h1>목적은 생산성</h1>
+            <p class="fragment">빠른 퇴근</p>
 
-            <p>예외</p>
+            <p>&rarr; 예외</p>
         </section>
 
 
@@ -940,13 +1414,61 @@ html {
         </section>
 
 
-        <section>
-            <p class="color-muted">예외라기보단...</p>
-
-            <h2>모든 것을 모듈화해<br>재사용해야 하는가?</h2>
-
-            <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+        <section id="bem">
+            <h1>BEM</h1>
+            <p>Block, Element, Modifier</p>
         </section>
+
+
+        <section>
+            <h2>작명규칙</h2>
+                    <pre><code class="css">.block {}
+.block__element {}
+.block--modifier {}</code></pre>
+            <p class="color-muted">오리지날 BEM(<code>bem.info</code>)과는 차이가 있다.</p>
+        </section>
+
+
+        <section>
+            <h2>작명규칙</h2>
+                    <pre><code class="css">.site-search {} /* Block */
+.site-search__field {} /* Element */
+.site-search--full {} /* Modifier */</code></pre>
+
+        </section>
+
+
+        <section>
+            <h2>연관된 클래스 묶음을 찾아 보자</h2>
+<pre><code class="hljs  html"><div class="media">
+    <img class="img-rev" src="logo.png" alt="Foo Corp logo">
+    <div class="body">
+        <h3 class="alpha">Welcome to Foo Corp</h3>
+        <p class="lede">Foo Corp is the best, seriously!</p>
+    </div>
+</div></code></pre>
+            <p class="text-small  color-muted">출처: <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">MindBEMding – getting your head ’round BEM syntax</a></p>
+        </section>
+
+
+
+        <section>
+            <h2>연관된 클래스 묶음을 찾아 보자</h2>
+<pre><code class="hljs  html"><div class="media">
+    <img class="media__img--rev" src="logo.png" alt="Foo Corp logo">
+    <div class="media__body">
+        <h3 class="alpha">Welcome to Foo Corp</h3>
+        <p class="lede">Foo Corp is the best, seriously!</p>
+    </div>
+</div></code></pre>
+            <p class="text-small  color-muted">출처: <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">MindBEMding – getting your head ’round BEM syntax</a></p>        </section>
+
+
+        <section>
+            <h2>못생겼다</h2>
+            <p class="fragment">그래서?</p>
+        </section>
+
 
 
         <section data-markdown>
@@ -956,27 +1478,45 @@ html {
         </section>
 
 
-        <section>
-            <p class="color-muted">오용1. Sniping Type에서 Snake Type으로...</p>
 
-            <h3 class="u-margin-bottom">CSS에 문서 구조를 담는 것은<br>목적이 아니다</h3>
+        <section>
+            <header>
+                <p class="color-muted">오용1. 초 일관된 BEM</p>
+                <h3>모든 것을 블럭으로 만들 이유는 없다</h3>
+            </header>
+
+<pre><code class="css">.header {}
+.header__logo { ... }</code></pre>
+
+            <p>굳이 이러지 말자</p>
+            <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+
+        </section>
+
+
+
+        <section>
+            <header>
+                <p class="color-muted">오용2. Sniping Type에서 Snake Type으로...</p>
+                <h3 class="u-margin-bottom">CSS에 문서 구조를 담지 말자</h3>
+            </header>
 
             <pre><code class="css">#article-footer .issue ul a.more</code></pre>
 
             <p>&darr;</p>
-            <pre><code class="css">.article-footer_issue_ul_a_more</code></pre>
+            <pre><code class="css">.article-footer__issue__ul__more</code></pre>
         </section>
 
 
         <section data-background-image="images/small-legos.jpg">
 
-            <h3 class="text-box" style="display: inline-block;">오용2</h3>
+            <h3 class="text-box" style="display: inline-block;">오용3</h3>
 
             <div class="text-box  text-box--less-transparent  fragment">
                 <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code>
                 </p>
+                <p>추상화 ≠ 원자화</p>
             </div>
-
         </section>
 
 
@@ -985,7 +1525,6 @@ html {
 
             <ul>
                 <li>Sass, Less 같은 <strong>전처리기</strong></li>
-                <li>BEM 같은 <strong>작명 기법</strong></li>
                 <li>CSS <strong>프레임워크</strong></li>
             </ul>
 
@@ -1009,7 +1548,7 @@ html {
             <img src="images/preprocessor-split-file.png" alt="파일을 나눌 수 있다">
             <img src="images/preprocessor-subset.png" alt="일부만 빼서 새 CSS 만들 수 있다 - 원 소스 멀티 유즈">
 
-            <p>+ minify, 변수, 함수, 확장, 재사용성</p>
+            <p>연관성, 중복&darr;, 불필요한 코드 제거, <br>재사용성&uarr;, minify, 변수 &rarr; 일관성, 함수, 확장(<code>extend</code>)</p>
 
             <aside class="notes" data-markdown>
                 (이미지를 보고 할 말)
@@ -1020,6 +1559,12 @@ html {
                 - 필요없는 코드 제거 용이
                 - 파일을 합칠 수 있다
             </aside>
+        </section>
+
+
+        <section id="conclusion">
+            <h1>나가며</h1>
+            <p>시맨틱? 스펙을 보자</p>
         </section>
 
 
@@ -1034,16 +1579,17 @@ html {
 
 
         <section>
-            <h1 style="font-weight: normal;">
-                <strong>원칙</strong>에 기반해
+            <h2 style="font-weight: normal;">
+                <strong>원칙</strong>에 <strong>기반</strong>해
                 <br>
-                <strong>사람</strong>과 토론한다
-            </h1>
+                <span class="text-medium"><strong>사람</strong>과 토론한다</span>
+            </h2>
+            <p class="color-muted">이건 예외다... 정말?</p>
         </section>
 
 
         <section>
-            <h2>더 이야기하고 싶다면...</h2>
+            <h2>감사합니다</h2>
 
             <ul>
                 <li><code>http://mytory.net</code></li>
