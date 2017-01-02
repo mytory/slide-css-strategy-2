@@ -427,7 +427,7 @@ html {
 
         <section>
             <h2><code>font-size</code> 369</h2>
-            <pre><code class="hljs plain">./view_text.css: font-size: 14px;
+            <pre><code class="hljs nohighlight">./view_text.css: font-size: 14px;
 ./view_text.css: font-size: 13px;
 ./view_text.css: font-size: 20px;
 ./view_text.css: font-size:12px;
@@ -1414,18 +1414,60 @@ html {
         </section>
 
 
-        <section>
+        <section id="bem">
             <h1>BEM</h1>
+            <p>Block, Element, Modifier</p>
         </section>
 
 
         <section>
-            <p class="color-muted">예외라기보단...</p>
-
-            <h2>모든 것을 모듈화해<br>재사용해야 하는가?</h2>
-
-            <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+            <h2>작명규칙</h2>
+                    <pre><code class="css">.block {}
+.block__element {}
+.block--modifier {}</code></pre>
+            <p class="color-muted">오리지날 BEM(<code>bem.info</code>)과는 차이가 있다.</p>
         </section>
+
+
+        <section>
+            <h2>작명규칙</h2>
+                    <pre><code class="css">.site-search {} /* Block */
+.site-search__field {} /* Element */
+.site-search--full {} /* Modifier */</code></pre>
+
+        </section>
+
+
+        <section>
+            <h2>연관된 클래스 묶음을 찾아 보자</h2>
+<pre><code class="hljs  html"><div class="media">
+    <img class="img-rev" src="logo.png" alt="Foo Corp logo">
+    <div class="body">
+        <h3 class="alpha">Welcome to Foo Corp</h3>
+        <p class="lede">Foo Corp is the best, seriously!</p>
+    </div>
+</div></code></pre>
+        </section>
+
+
+
+        <section>
+            <h2>연관된 클래스 묶음을 찾아 보자</h2>
+<pre><code class="hljs  html"><div class="media">
+    <img class="media__img--rev" src="logo.png" alt="Foo Corp logo">
+    <div class="media__body">
+        <h3 class="alpha">Welcome to Foo Corp</h3>
+        <p class="lede">Foo Corp is the best, seriously!</p>
+    </div>
+</div></code></pre>
+        </section>
+
+
+        <section>
+            <h2>못생겼다</h2>
+            <p class="fragment">그래서?</p>
+        </section>
+
 
 
         <section data-markdown>
@@ -1435,30 +1477,45 @@ html {
         </section>
 
 
-        <section>
-            <p class="color-muted">오용1. Sniping Type에서 Snake Type으로...</p>
 
-            <h3 class="u-margin-bottom">CSS에 문서 구조를 담는 것은<br>목적이 아니다</h3>
+        <section>
+            <header>
+                <p class="color-muted">오용1. 초 일관된 BEM</p>
+                <h3>모든 것을 블럭으로 만들 이유는 없다</h3>
+            </header>
+
+<pre><code class="css">.header {}
+.header__logo { ... }</code></pre>
+
+            <p>굳이 이러지 말자</p>
+            <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+
+        </section>
+
+
+
+        <section>
+            <header>
+                <p class="color-muted">오용2. Sniping Type에서 Snake Type으로...</p>
+                <h3 class="u-margin-bottom">CSS에 문서 구조를 담지 말자</h3>
+            </header>
 
             <pre><code class="css">#article-footer .issue ul a.more</code></pre>
 
             <p>&darr;</p>
-            <pre><code class="css">.article-footer_issue_ul_a_more</code></pre>
+            <pre><code class="css">.article-footer__issue__ul__more</code></pre>
         </section>
 
 
         <section data-background-image="images/small-legos.jpg">
 
-            <h3 class="text-box" style="display: inline-block;">오용2</h3>
+            <h3 class="text-box" style="display: inline-block;">오용3</h3>
 
             <div class="text-box  text-box--less-transparent  fragment">
                 <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code>
                 </p>
                 <p>추상화 <code>!=</code> 원자화</p>
             </div>
-
-
-
         </section>
 
 
@@ -1467,7 +1524,6 @@ html {
 
             <ul>
                 <li>Sass, Less 같은 <strong>전처리기</strong></li>
-                <li>BEM 같은 <strong>작명 기법</strong></li>
                 <li>CSS <strong>프레임워크</strong></li>
             </ul>
 
