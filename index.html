@@ -22,30 +22,30 @@
     </script>
 
     <!--<style>-->
-        <!--.reveal aside.notes {-->
-            <!--border: 1px solid #000;-->
-            <!--display: block;-->
-            <!--font-size: 16pt;-->
-            <!--page-break-before: always;-->
-            <!--background-color: white;-->
-            <!--text-align: left;-->
-            <!--padding: 1em;-->
-        <!--}-->
+    <!--.reveal aside.notes {-->
+    <!--border: 1px solid #000;-->
+    <!--display: block;-->
+    <!--font-size: 16pt;-->
+    <!--page-break-before: always;-->
+    <!--background-color: white;-->
+    <!--text-align: left;-->
+    <!--padding: 1em;-->
+    <!--}-->
     <!--</style>-->
 </head>
 <body>
 <div class="reveal">
     <div class="slides">
         <section>
-            <p class="text-left  color-muted">WSConf.Seoul 2016</p>
+            <p class="text-left  color-muted">위트인웹</p>
+
             <h1>
                 유지보수하기 쉬운 <br> CSS 전략
             </h1>
 
             <p class="text-right  color-muted"><strong>안형우</strong> 노동자 연대</p>
-            
+
             <aside class="notes" data-markdown>
-                제목을 좀더 일반적인 것으로 바꾸었다.
                 상속을 활용하는 것과 OOCSS의 기본 원리와 도구, 그리고 프리프로세서를 다룬다.
             </aside>
         </section>
@@ -53,23 +53,18 @@
         <section>
             <h1>Best Practice?</h1>
 
-            <dl>
-                <dt>계층적 선택자</dt>
-                <dd>CSS의 <strong>C</strong>ascade</dd>
-                <dt>시맨틱</dt>
-                <dd>
-                    콘텐츠의 성격을 반영하는 클래스명
-                    <small>모양 X</small>
-                </dd>
-            </dl>
-            
+            <ul>
+                <li>계층적 선택자 활용</li>
+                <li>콘텐츠의 성격을 반영하는 클래스명(시맨틱)</li>
+            </ul>
+
             <p>&rarr; 실제 개발에서는 문제를 낳음</p>
-            
+
             <aside class="notes" data-markdown>
                 시맨틱은 CSS 스펙에 나옴.
                 "… 작성자는 콘텐츠의 성격(nature)을 설명하는 [클래스 속성] 값을 사용하는 편이 좋다. 콘텐츠 모양이 어떻게 표시되길 바라는가를 설명하는 값을 사용하는 것은 좋지 않다."
 
-                계단에 따라 적용할 규칙을 덮어쓸 수 있다는 점때문에 불필요하게 많은 선택자가 사용된다.
+                케스케이드 규칙을 남용해 불필요하게 많은 선택자가 사용된다.
             </aside>
         </section>
 
@@ -81,8 +76,6 @@
 #intro .main { ... }
 #intro .main h1 { ... }</code></pre>
 
-            <p class="color-muted">한 화면에 담으려고 한 줄로 썼습니다.</p>
-
             <aside class="notes" data-markdown>
                 이런 식의 예제가 많다. id, class, tag를 모두 배워야 하고 계층형도 배워야 한다. 학습으로선 괜찮다.
             </aside>
@@ -90,7 +83,8 @@
         <section>
             <h2>권장사항이 우리 목을 조르고 있다</h2>
 
-            <blockquote class="color-muted">
+            <blockquote class="color-muted"
+                        cite="http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/">
                 <p>
                     Our CSS best practice are killing us.
                     <br>
@@ -171,16 +165,33 @@
                 는 잘못이 없다
             </h2>
 
-            <pre><code class="css">@import 'nomalize.css';
+            <blockquote>
+                <p>
+                    <strong>케스케이드</strong>는 주어진 속성과 요소에 선언된 값 목록을 순서없이 취해서,
+                    아래 규칙*대로 그 선언을 우선순위에 따라 정렬하고, 하나의 케스케이드된 값을 출력한다.
+                </p>
+
+                <p>- <a href="https://www.w3.org/TR/css3-cascade/#cascading">CSS3 스펙</a></p>
+            </blockquote>
+
+        </section>
+
+        <section>
+
+            <h2>
+                <ruby>폭포
+                    <rt>Cascade</rt>
+                </ruby>
+                처럼 흐르게 하자
+            </h2>
+
+<pre><code class="css">@import 'nomalize.css';
 html {
   font-size: 100%;
   font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'KopubDotum', sans-serif;
   ...
 }
 </code></pre>
-
-            <p>기본 스타일을 갖추고 출발할 수 있게 해 준다.</p>
-
 
             <aside class="notes" data-markdown>
                 캐스캐이드는 한 요소에 같은 규칙이 적용됐을 때 어떤 규칙을 우선해서
@@ -197,12 +208,14 @@ html {
                 캐스캐이드를 잘 활용하려면 기본 스타일을 잘 지정한다는 것을 의미한다.
             </aside>
 
-
         </section>
 
         <section>
             <h2>
-                <ruby>폭포<rt>Cascade</rt></ruby>처럼 흐르게 하고<br>필요한 놈만 저격하자
+                <ruby>폭포
+                    <rt>Cascade</rt>
+                </ruby>
+                처럼 흐르게 하고<br>필요한 놈만 저격하자
             </h2>
 
             <pre><code class="css">input, textarea {
@@ -250,6 +263,66 @@ html {
         </section>
 
         <section>
+            <h2>내용 시맨틱의 중요성</h2>
+        </section>
+
+        <section data-background-image="images/semantic-html.png">
+            <a target="_blank" rel="noopener" href="images/semantic-html.png">.</a>
+        </section>
+
+        <section>
+
+            <img src="images/semantic-html-fragment-1.png" alt="">
+
+            <pre><code class="html">&lt;h2&gt;박근혜 정권 퇴진 제10차 범국민행동의 날&lt;/h2&gt;
+&lt;h1&gt;1백만 명이 소리친 광화문 &ldquo;송박영신&rdquo;&lt;/h1&gt;</code></pre>
+
+        </section>
+
+        <section>
+            <img src="images/semantic-html-fragment-1.png" alt="">
+
+            <pre><code class="html">&lt;h1&gt;
+  &lt;span class=&quot;subheadline&quot;&gt;
+    박근혜 정권 퇴진 제10차 범국민행동의 날
+  &lt;/span&gt;
+&nbsp;&nbsp;1백만 명이 소리친 광화문 &ldquo;송박영신&rdquo;
+&lt;/h1&gt;</code></pre>
+        </section>
+
+        <section>
+            <img src="images/semantic-html-fragment-1.png" alt="">
+
+            <pre><code class="html">&lt;header class=&quot;article-title&quot;&gt;
+&nbsp; &lt;p&gt;박근혜 정권 퇴진 제10차 범국민행동의 날&lt;/p&gt;
+  &lt;h1&gt;1백만 명이 소리친 광화문 &ldquo;송박영신&rdquo;&lt;/h1&gt;
+&lt;/header&gt;</code></pre>
+        </section>
+
+
+        <section>
+            <img src="images/semantic-html-fragment-2.png" alt="">
+
+            <pre><code class="html">&lt;a href=&quot;#&quot; title=&quot;카카오톡 공유&quot;&gt;
+  &lt;img src=&quot;...&quot; alt=&quot;&quot;&gt;
+&lt;/a&gt;</code></pre>
+        </section>
+
+
+        <section>
+            <img src="images/semantic-html-fragment-2.png" alt="">
+
+            <pre><code class="html">&lt;button type=&quot;button&quot;
+  class=&quot;button-like-text&quot;
+  title=&quot;카카오톡 공유&quot;&gt;
+  &lt;img src=&quot;...&quot; alt=&quot;&quot;&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+
+
+
+        <section>
             <pre class="text-large"><code class="html">&lt;h2>뉴스&lt;/h2>
 &lt;ul class="news">
   ...</code></pre>
@@ -266,7 +339,9 @@ html {
         <section data-background-image="images/kind-of-lego-block.jpg">
             <div class="text-box">
                 <h1>
-                    <ruby>OOCSS <rt>Object Oriented CSS</rt></ruby>
+                    <ruby>OOCSS
+                        <rt>Object Oriented CSS</rt>
+                    </ruby>
                 </h1>
 
                 <p class="text-right">
@@ -293,8 +368,6 @@ html {
         </section>
 
 
-
-
         <section>
             <p class="color-muted">원칙1. 골격과 겉모양을 분리</p>
 
@@ -317,7 +390,6 @@ html {
         </section>
 
 
-
         <section data-background-image="images/separate-structure-and-skin.jpg">
             <a target="_blank" href="images/separate-structure-and-skin.jpg" class="color-muted">.</a>
 
@@ -325,8 +397,6 @@ html {
                 이렇게 분리.
             </aside>
         </section>
-
-
 
 
         <section>
@@ -450,7 +520,7 @@ html {
             <h2>부트스트랩의 <code>.btn</code> 객체</h2>
 
             <p><img src="images/bootstrap-button-1.jpg" alt=""></p>
-<pre><code class="html">&lt;button class="btn  btn-primary"></code></pre>
+            <pre><code class="html">&lt;button class="btn  btn-primary"></code></pre>
 
             <aside class="notes" data-markdown>
                 내용 그대로
@@ -462,7 +532,7 @@ html {
             <h2>부트스트랩의 <code>.btn</code> 객체</h2>
 
             <p><img src="images/bootstrap-button-2.jpg" alt=""></p>
-<pre><code class="html">&lt;button class="btn  btn-lg  btn-primary"></code></pre>
+            <pre><code class="html">&lt;button class="btn  btn-lg  btn-primary"></code></pre>
 
             <aside class="notes" data-markdown>
                 내용 그대로
@@ -492,7 +562,10 @@ html {
         <section>
             <p class="color-muted">
                 도구1.
-                <ruby>특정도<rt>Specificity</rt></ruby> 평준화
+                <ruby>특정도
+                    <rt>Specificity</rt>
+                </ruby>
+                평준화
             </p>
 
             <table>
@@ -533,7 +606,8 @@ html {
             </table>
 
             <p class="color-muted  text-small">자세하게 알고 싶으면 MDN의
-                <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank" rel="noopener">명시도</a> 참고</p>
+                <a href="https://developer.mozilla.org/ko/docs/Web/CSS/Specificity" target="_blank"
+                   rel="noopener">명시도</a> 참고</p>
 
             <aside class="notes" data-markdown>
                 특정도는 캐스캐이드가 적용할 규칙의 우선순위를 가릴 때 사용하는 점수를 뜻한다.
@@ -542,9 +616,9 @@ html {
 
                 1. 앞서 적용한 규칙이 뒤에서 적용한 규칙을 덮어쓴다. 특정도 전쟁이 벌어진다.
                 2. 방금 적용한 규칙이 어떤 규칙 때문에 적용이 안 되는지 일일이 찾아서 바꿔야
-                   하므로 유지보수에 시간이 많이 든다.
+                하므로 유지보수에 시간이 많이 든다.
                 3. 규칙을 덮어쓰기 위해 더 높은 특정도를 만들어야 하므로 불필요한 선택자가 많아지고,
-                   이것은 또다시 특정도 전쟁을 유발한다.
+                이것은 또다시 특정도 전쟁을 유발한다.
 
                 따라서, `ID`를 선택자로 사용하진 말자. 책갈피와 js 훅에 사용하자.
             </aside>
@@ -554,7 +628,9 @@ html {
 
         <section>
             <p class="color-muted">도구2. 클래스와 태그 선택자를 결합하지 말자</p>
+
             <h2><code><span class="fragment fade-out">ul</span>.nav</code></h2>
+
             <h2><code><span class="fragment fade-out">div</span>.box</code></h2>
 
             <aside class="notes" data-markdown>
@@ -567,9 +643,9 @@ html {
         </section>
 
 
-
         <section>
             <p class="color-muted">도구2. 넓은 범위에 자손 태그 선택자를 사용하지 말자</p>
+
             <h2><code>.title span</code></h2>
 
 <pre><code class="html"><header class="title">
@@ -585,10 +661,9 @@ html {
         </section>
 
 
-
-
         <section>
             <p class="color-muted">도구2. 넓은 범위에 자손 태그 선택자를 사용하지 말자</p>
+
             <h2><code>.color-primary</code></h2>
 
 <pre><code class="html"><header class="title">
@@ -604,19 +679,18 @@ html {
         </section>
 
 
-
         <section>
             <p class="color-muted">도구1~2. 특정도와 태그 선택자</p>
 
 <pre><code class="css">.btn { ... }
 .uilist a { ... }</code></pre>
 
-<div class="fragment">
+            <div class="fragment">
 <pre><code class="html">&lt;nav class="uilist">
     &lt;a>소개&lt;/a>
     &lt;a class="btn">로그인&lt;/a>
 &lt;/nav></code></pre>
-</div>
+            </div>
             <p class="color-muted  text-small  text-right"><code>href</code> 속성은 생략했습니다.</p>
             <aside class="notes">
                 모든 <code>a</code>에 적용 -> 덮어쓰게 된다.
@@ -631,7 +705,7 @@ html {
 <pre><code class="css">.btn { ... }
 .uilist-item { ... }</code></pre>
 
-<div class="fragment">
+            <div class="fragment">
 <pre><code class="html">&lt;nav class="uilist">
     &lt;a class="uilist-item">소개&lt;/a>
     &lt;span class="uilist-item">
@@ -640,30 +714,32 @@ html {
 &lt;/nav></code></pre>
 
 
-</div>
-    <aside class="notes">
-        <p>코드는 좀 늘어도 일관성 유지.</p>
-    </aside>
+            </div>
+            <aside class="notes">
+                <p>코드는 좀 늘어도 일관성 유지.</p>
+            </aside>
         </section>
-
-
-
-<section>
-    <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
-
-    <h2><code class="bg-negative">.blue-title</code></h2>
-    <h2><code class="bg-positive">.text-primary</code></h2>
-
-    <aside class="notes" data-markdown>
-        `.blue-title`이어야 하는 경우도 있을 테지만 대체로는 아니다. 변동 가능성이 있다면 좀더 추상적인 이름으로 하자.
-    </aside>
-
-</section>
 
 
         <section>
             <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
+
+            <h2><code class="bg-negative">.blue-title</code></h2>
+
+            <h2><code class="bg-positive">.text-primary</code></h2>
+
+            <aside class="notes" data-markdown>
+                `.blue-title`이어야 하는 경우도 있을 테지만 대체로는 아니다. 변동 가능성이 있다면 좀더 추상적인 이름으로 하자.
+            </aside>
+
+        </section>
+
+
+        <section>
+            <p class="color-muted">도구3. 재사용성을 확보하는 이름</p>
+
             <h2><code class="bg-negative">.bottom-items</code></h2>
+
             <h2><code class="bg-positive">.cards</code></h2>
 
             <aside class="notes" data-markdown>
@@ -675,63 +751,61 @@ html {
         </section>
 
 
-<section>
-    <p class="color-muted">도구4. 기본 객체를 갖추자</p>
+        <section>
+            <p class="color-muted">도구4. 기본 객체를 갖추자</p>
 
-    <h2>그리드, 헤딩, 링크, 목록, 버튼, <br>미디어, 테이블, 타이포...</h2>
+            <h2>그리드, 헤딩, 링크, 목록, 버튼, <br>미디어, 테이블, 타이포...</h2>
 
-    <aside class="notes" data-markdown>
-        각각을 설명
-    </aside>
-
-
-</section>
+            <aside class="notes" data-markdown>
+                각각을 설명
+            </aside>
 
 
-<section>
-    <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
-
-    <ul>
-        <li>기본 <strong>글꼴, 크기, 색</strong>을 태그 선택자에 지정</li>
-        <li>Hx <strong>글꼴, 크기, 색</strong>을 헤딩 선택자에 지정</li>
-        <li>사용할 <strong>글꼴, 크기, 색</strong> 유틸리티 클래스</li>
-    </ul>
-
-    <p>객체에서의 폰트 지정은 최소화</p>
-
-    <aside class="notes" data-markdown>
-        내용 그대로
-    </aside>
-</section>
+        </section>
 
 
+        <section>
+            <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
 
-<section data-background-image="images/typo-page.jpg">
-    <aside class="notes" data-markdown>
-        제작중인 사이트다. 다양한 글자 크기, 모양, 색이 있다.
-    </aside>
-</section>
+            <ul>
+                <li>기본 <strong>글꼴, 크기, 색</strong>을 태그 선택자에 지정</li>
+                <li>Hx <strong>글꼴, 크기, 색</strong>을 헤딩 선택자에 지정</li>
+                <li>사용할 <strong>글꼴, 크기, 색</strong> 유틸리티 클래스</li>
+            </ul>
 
+            <p>객체에서의 폰트 지정은 최소화</p>
 
-
-<section data-background-image="images/typo-page.jpg">
-    <p class="color-muted  text-box">도구5. 타이포그라피 전략을 세우자</p>
-    <img src="images/typo.jpg" alt="글자 크기 파편화가 너무 심하다">
-
-    <aside class="notes" data-markdown>
-        1. 가장 작은 사이즈는 통일하는 쪽으로
-        2. 작은 사이즈도 통일하는 쪽으로
-        3. 디자이너와 토론해야 한다. 물론 안 되면 어쩔 수 없다.
-    </aside>
-</section>
+            <aside class="notes" data-markdown>
+                내용 그대로
+            </aside>
+        </section>
 
 
+        <section data-background-image="images/typo-page.jpg">
+            <aside class="notes" data-markdown>
+                제작중인 사이트다. 다양한 글자 크기, 모양, 색이 있다.
+            </aside>
+        </section>
 
-<section>
-    <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
-    <h2>
-        유틸리티 클래스 활용
-    </h2>
+
+        <section data-background-image="images/typo-page.jpg">
+            <p class="color-muted  text-box">도구5. 타이포그라피 전략을 세우자</p>
+            <img src="images/typo.jpg" alt="글자 크기 파편화가 너무 심하다">
+
+            <aside class="notes" data-markdown>
+                1. 가장 작은 사이즈는 통일하는 쪽으로
+                2. 작은 사이즈도 통일하는 쪽으로
+                3. 디자이너와 토론해야 한다. 물론 안 되면 어쩔 수 없다.
+            </aside>
+        </section>
+
+
+        <section>
+            <p class="color-muted">도구5. 타이포그라피 전략을 세우자</p>
+
+            <h2>
+                유틸리티 클래스 활용
+            </h2>
 <pre><code class="css">/* text align */
 .u-text-right
 .u-text-center
@@ -751,53 +825,43 @@ html {
 .u-text-no-deco
 </code></pre>
 
-    <aside class="notes" data-markdown>
-        중복 방지용이다.
-    </aside>
+            <aside class="notes" data-markdown>
+                중복 방지용이다.
+            </aside>
 
-</section>
-
-
+        </section>
 
 
-<section>
-    <h1>사례</h1>
-</section>
+        <section>
+            <h1>사례</h1>
+        </section>
 
-<section data-background-image="images/line-object.jpg">
-<div class="text-box  fragment">
+        <section data-background-image="images/line-object.jpg">
+            <div class="text-box  fragment">
 <pre><code class="sass">.separator {
   border: none;
   border-bottom-width: 1px;
 }
 .separator--color-default
 .separator--color-secondary</code> </pre>
-</div>
+            </div>
 
-</section>
-
-
+        </section>
 
 
-<section>
-    <p>높이 고정 없이 균일 높이</p>
-    <img src="images/flex-grid-1.jpg" alt="하단 관련기사">
-</section>
+        <section>
+            <p>높이 고정 없이 균일 높이</p>
+            <img src="images/flex-grid-1.jpg" alt="하단 관련기사">
+        </section>
 
 
+        <section data-background-image="images/flex-grid-sketch.jpg">
+            <a target="_blank" href="images/flex-grid-sketch.jpg" class="color-muted">.</a>
+        </section>
 
 
-
-<section data-background-image="images/flex-grid-sketch.jpg">
-    <a target="_blank" href="images/flex-grid-sketch.jpg" class="color-muted">.</a>
-</section>
-
-
-
-
-
-<section>
-    <p>제목 부분 처리</p>
+        <section>
+            <p>제목 부분 처리</p>
 
 <pre><code class="html"><h2 class="u-color-secondary">
     이슈 :
@@ -805,7 +869,7 @@ html {
         노동자 운동
     </a>
 </h2></code></pre>
-</section>
+        </section>
 
 
         <section>
@@ -825,17 +889,15 @@ html {
         </section>
 
 
-
         <section>
             <p>재사용</p>
             <img src="images/flex-grid-2.jpg" alt="지난 호 목록">
         </section>
 
 
-
         <section>
             <h2>객체의 범위는<br>어떻게 정해야 할까?</h2>
-            
+
             <ul>
                 <li>제한된 역할을 담당하는</li>
                 <li>관련된 코드들을</li>
@@ -845,58 +907,57 @@ html {
         </section>
 
 
+        <section>
+            <h1>목적은 생산성</h1>
+
+            <p>예외</p>
+        </section>
 
 
-<section>
-    <h1>목적은 생산성</h1>
-    <p>예외</p>
-</section>
+        <section data-background-image="images/ckeditor.jpg">
+            <div class="text-box">
+                <p class="color-muted">예외</p>
+
+                <h2>에디터가 생산한 코드 <br> <code>.content h2</code></h2>
+            </div>
+        </section>
 
 
+        <section data-background-image="images/bxslider.jpg">
+            <div class="text-box">
+                <p class="color-muted">예외</p>
 
-<section data-background-image="images/ckeditor.jpg">
-    <div class="text-box">
-        <p class="color-muted">예외</p>
-        <h2>에디터가 생산한 코드 <br> <code>.content h2</code></h2>
-    </div>
-</section>
-
-
-
-<section data-background-image="images/bxslider.jpg">
-    <div class="text-box">
-        <p class="color-muted">예외</p>
-        <h2>선택자에 개입하지<br>못하는 라이브러리</h2>
-    </div>
-</section>
+                <h2>선택자에 개입하지<br>못하는 라이브러리</h2>
+            </div>
+        </section>
 
 
+        <section>
+            <p class="color-muted">예외라기보단...</p>
 
-<section>
-    <p class="color-muted">예외라기보단...</p>
-    <h2>모든 것을 모듈화해<br>재사용해야 하는가?</h2>
-    <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
-</section>
+            <h2>모든 것을 모듈화해<br>재사용해야 하는가?</h2>
 
-
-
-
-<section data-markdown>
-    # 목적을 되새기자
-
-    오용 방지
-</section>
+            <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
+        </section>
 
 
-<section>
-    <p class="color-muted">오용1. Sniping Type에서 Snake Type으로...</p>
-    <h3 class="u-margin-bottom">CSS에 문서 구조를 담는 것은<br>목적이 아니다</h3>
+        <section data-markdown>
+            # 목적을 되새기자
 
-    <pre><code class="css">#article-footer .issue ul a.more</code></pre>
-    <p>&darr;</p>
-    <pre><code class="css">.article-footer_issue_ul_a_more</code></pre>
-</section>
+            오용 방지
+        </section>
 
+
+        <section>
+            <p class="color-muted">오용1. Sniping Type에서 Snake Type으로...</p>
+
+            <h3 class="u-margin-bottom">CSS에 문서 구조를 담는 것은<br>목적이 아니다</h3>
+
+            <pre><code class="css">#article-footer .issue ul a.more</code></pre>
+
+            <p>&darr;</p>
+            <pre><code class="css">.article-footer_issue_ul_a_more</code></pre>
+        </section>
 
 
         <section data-background-image="images/small-legos.jpg">
@@ -904,12 +965,11 @@ html {
             <h3 class="text-box" style="display: inline-block;">오용2</h3>
 
             <div class="text-box  text-box--less-transparent  fragment">
-                <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code></p>
+                <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code>
+                </p>
             </div>
 
         </section>
-
-
 
 
         <section>
@@ -931,7 +991,12 @@ html {
 
 
         <section>
-            <h2><ruby>전처리기 <rt>Preprocessor</rt></ruby>의 이점</h2>
+            <h2>
+                <ruby>전처리기
+                    <rt>Preprocessor</rt>
+                </ruby>
+                의 이점
+            </h2>
 
             <img src="images/preprocessor-split-file.png" alt="파일을 나눌 수 있다">
             <img src="images/preprocessor-subset.png" alt="일부만 빼서 새 CSS 만들 수 있다 - 원 소스 멀티 유즈">
@@ -942,15 +1007,12 @@ html {
                 (이미지를 보고 할 말)
 
                 - 파일을 나누면 장점
-                    - 코드 연관성 증가
-                    - 중복 제거 용이
-                    - 필요없는 코드 제거 용이
+                - 코드 연관성 증가
+                - 중복 제거 용이
+                - 필요없는 코드 제거 용이
                 - 파일을 합칠 수 있다
             </aside>
         </section>
-
-
-
 
 
         <section data-markdown>
@@ -963,8 +1025,6 @@ html {
         </section>
 
 
-
-
         <section>
             <h1 style="font-weight: normal;">
                 <strong>원칙</strong>에 기반해
@@ -972,8 +1032,6 @@ html {
                 <strong>사람</strong>과 토론한다
             </h1>
         </section>
-
-
 
 
         <section>

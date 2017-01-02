@@ -298,6 +298,10 @@ rt {
 code {
   text-transform: none; }
 
+.reveal blockquote {
+  font-style: normal;
+  background-color: #e9ecef; }
+
 .text-small {
   font-size: 19px !important; }
 

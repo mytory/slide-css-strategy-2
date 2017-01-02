@@ -62,6 +62,11 @@ code {
   text-transform: none;
 }
 
+.reveal blockquote {
+  font-style: normal;
+  background-color: $oc-gray-2;
+}
+
 // typo
 .text-small {
   font-size: $mainFontSize / 2 !important;
