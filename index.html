@@ -81,28 +81,27 @@
             </aside>
         </section>
         <section>
-            <h2>권장사항이 우리 목을 조르고 있다</h2>
-
-            <blockquote class="color-muted"
-                        cite="http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/">
+            <header>
+                <h2>권장사항이 우리 목을 조르고 있다</h2>
                 <p>
-                    Our CSS best practice are killing us.
-                    <br>
                     <small>
+                        Our CSS best practice are killing us.
                         <a target="_blank" rel="noopener"
                            href="http://www.stubbornella.org/content/2011/04/28/our-best-practices-are-killing-us/">
                             by Nicole Sullivan
                         </a>
                     </small>
                 </p>
-            </blockquote>
+            </header>
+
             <pre class="text-medium"><code class="css">.issue h2 { ... }
 .issue ul { ... }
 .issue ul li a { ... }
-.issue ul a.more { ... }
+.issue a.more { ... }
 .news h2 { ... }
-.latest h2 { ... }
-.related h2 { ... }</code></pre>
+.latest h2 { ... }</code></pre>
+
+            <p class="color-muted">새 클래스마다 자식 정의, 중복, 귀차니즘, 시간</p>
 
             <aside class="notes" data-markdown>
                 - 새 클래스명마다 딸린 자식들을 정의해야.
@@ -143,6 +142,8 @@
 #article-footer .issue ul a.more { ... }
 #article-footer .latest h2 { ... }
 #article-footer .related h2 { ... }</code></pre>
+
+            <p class="text-outline  color-muted" style="font-weight: bold;">특정도 전쟁, 용량 증가, 불필요한 코드 삭제&darr;</p>
 
             <aside class="notes" data-markdown>
                 저격형 선택자. 엄청나게 비효율적이다.
@@ -193,55 +194,66 @@ html {
 }
 </code></pre>
 
-            <aside class="notes" data-markdown>
-                캐스캐이드는 한 요소에 같은 규칙이 적용됐을 때 어떤 규칙을 우선해서
-                적용할 것인지 가려 주는 놈이다.
-
-                이 말은, 상속 받은 규칙과 해당 요소에 바로 적용된 규칙 사이에서도 작용.
-                만약 상속 받은 규칙이라는 것이 존재하지 않는다면 캐스캐이드의 역할은
-                매우 줄어들 것이다.
-
-                오히려 엄청나게 세부적으로 스타일을 지정해야 하는 문제가 벌어진다.
-
-                그런데 저격형 선택자는 마치 상속이 없는 것처럼 사용하는 선택자다.
-                캐스캐이드는 지나치게 활용한 결과 캐스캐이드가 없는 것처럼 행동하게 된 것이다.
-                캐스캐이드를 잘 활용하려면 기본 스타일을 잘 지정한다는 것을 의미한다.
-            </aside>
-
         </section>
 
         <section>
             <h2>
-                <ruby>폭포
-                    <rt>Cascade</rt>
-                </ruby>
-                처럼 흐르게 하고<br>필요한 놈만 저격하자
+                필요한 놈만 저격하자
             </h2>
 
-            <pre><code class="css">input, textarea {
+<pre><code class="css">/* 기본 스타일 조정 */
+input, textarea {
   font-family: inherit;
   line-height: inherit;
   color: inherit;
+}
+
+...
+
+/* 특수한 ul만 조정 */
+.simple-list {
+  list-style-type: none;
+  margin-left: 1em;
+}
+.simple-list > li:before {
+  content: "•";
+  color: #800000;
+  margin-left: -1em;
 }</code></pre>
 
             <aside class="notes" data-markdown>
-                `input`, `textarea`는 위 세 요소를 상속받지 않는다. 그래서 상속을 받도록 지정해 줬다.
+                `input`, `textarea`는 `font-family`, `line-height`, `color` 속성을 상속받지 않는다.
+                그래서 상속을 받도록 지정해 줬다.
                 이렇게 지정한 이후부터는 다시 `input`, `textarea`에 대해서 신경쓸 필요가 없어지는 것이다.
 
-                캐스캐이드의 기본 뜻은 폭포다. 속성 정의가 폭포처럼 흐르게 하면서 세부적인 물길만 조정해
+                케스캐이드의 기본 뜻은 폭포다. 속성 정의가 폭포처럼 흐르게 하면서 세부적인 물길만 조정해
                 주는 것이 기본적으로 익혀야 할 기법이다.
             </aside>
 
         </section>
 
         <section>
-            <h1 class="u-margin-bottom">클래스명은 내용을 설명해야 하는가?</h1>
+            <header>
+                <p>CSS 스펙 권장사항</p>
+                <h2>시맨틱</h2>
+            </header>
+            <blockquote cite="https://www.w3.org/TR/html5/dom.html#classes">
+                <p>… 작성자는 콘텐츠의 성격(nature)을 설명하는 값을 사용하는 편이 좋다. 콘텐츠 모양이 어떻게 표시되길 바라는가를 설명하는 값을 사용하는 것은 좋지 않다.</p>
+                <p>- <a href="https://www.w3.org/TR/html5/dom.html#classes">HTML5, The class attribute</a></p>
+            </blockquote>
+        </section>
 
-            <p>CSS의 시맨틱 ≠ 내용의 시맨틱</p>
+        <section>
+            <header>
+                <h2>CSS의 시맨틱 ≠ 내용의 시맨틱</h2>
+            </header>
 
-            <p class="text-right">
-                <a href="http://mytory.net/2016/12/02/about-html-semantics-front-end-architecture.html">by 니콜라스 갤러거</a>
-            </p>
+            <blockquote cite="http://mytory.net/2016/12/02/about-html-semantics-front-end-architecture.html">
+                <p>그렇게 해야 할 본질적 이유는 없다. 사실, 그렇게 하면 대규모 웹사이트나 애플리케이션 작업을 할 때 방해되는 경우가 많다.</p>
+                <p>
+                    <a href="http://mytory.net/2016/12/02/about-html-semantics-front-end-architecture.html">- 니콜라스 갤러거</a>
+                </p>
+            </blockquote>
 
             <aside class="notes" data-markdown>
                 내용 그대로.
@@ -264,7 +276,8 @@ html {
 
         <section>
             <h2>내용 시맨틱</h2>
-            <p><strong>구조</strong>와 표현을 분리 &rarr; 구조에 해당</p>
+
+            <p>CSS는 <strong>구조</strong>와 표현을 분리</p>
         </section>
 
         <section data-background-image="images/semantic-html.png">
@@ -349,7 +362,6 @@ html {
                        title="HTML Body 요소 (<body>) 는 HTML 문서의 내용을 나타냅니다.&nbsp; 한 문서에 오직 하나의 <body> 요소만이 존재할수 있습니다."><code>&lt;body&gt;</code></a>에
                     대한 연락처 정보를 제공하기 위해 사용합니다; 후자의 경우에는 문서 전체에 적용됩니다.
                 </p>
-                <p><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">- MDN</a></p>
             </blockquote>
         </section>
 
@@ -358,20 +370,35 @@ html {
 
             <blockquote cite="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">
                 <ul>
-                    <li>연락처 정보와 관련없는 임의의 주소를 나타내려면&nbsp;<code>&lt;address&gt;</code> 요소 대신에 <a class="new" href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/p" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;p&gt;</code></a> 요소를 사용하세요.</li>
-                    <li>작성일과 같이 연락처와 관련 없는 정보를 포함해서는 안됩니다.(이 경우에는 <a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/time" title="HTML <time> 요소는 24시간 시각이나 정확한 그레고리력 날짜를 나타냅니다. (선택적으로 시간과 타임존 정보가 함께 들어갈수 있습니다.)"><code>&lt;time&gt;</code></a> 요소를 사용하세요).</li>
-                    <li>전형적으로 <code>&lt;address&gt;</code> 요소는 현재 섹션의 <a class="new" href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/footer" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;footer&gt;</code></a> 내부에 위치되곤 합니다.</li>
+                    <li>연락처와 관련없는 임의의 주소 X</li>
+                    <li>작성일 X &rarr; <code>&lt;time></code> 사용</li>
+                    <li>보통 <code>&lt;footer></code> 안에 위치</li>
                 </ul>
-                <p><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/address">- MDN</a></p>
             </blockquote>
         </section>
 
         <section>
-            <h2>페이스북 인스턴트 아티클</h2>
-            <pre><code class="html">&lt;!-- The author of your article --&gt;
-&lt;address&gt;
-  Instant Articles Team
-&lt;/address&gt;</code></pre>
+            <p class="color-muted">페이스북 인스턴트 아티클 예제</p>
+<pre><code class="html"><article>
+...
+  &lt;!-- 글의 저자 --&gt;
+  &lt;address&gt;
+    인스턴트 아티클 팀
+  &lt;/address&gt;
+  ...
+</article></code></pre>
+        </section>
+
+        <section>
+            <p class="color-muted">HTML5 스펙의 <a
+                    href="https://www.w3.org/TR/html5/sections.html#the-address-element">예제</a></p>
+<pre><code class="html"><footer>
+  <address>
+    더 자세한 내용을 원하시면 연락 주세요
+    <a href="mailto:mail@mytory.net">안형우</a>.
+  </address>
+  <p><small>&copy;mytory.net</small></p>
+</footer></code></pre>
         </section>
 
         <section>
@@ -839,10 +866,7 @@ html {
 
         <section>
             <p class="color-muted">원칙1. 골격과 겉모양을 분리</p>
-<pre class="text-medium"><code class="css">.button {
-    line-height: 20px;
-    ...
-}
+<pre class="text-medium"><code class="css">.button { line-height: 20px; ... }
 </code></pre>
 <pre class="text-medium"><code class="css">.button-primary {
     background-color: blue;
@@ -851,11 +875,7 @@ html {
     background-color: red;
 }
 </code></pre>
-
-            <aside class="notes" data-markdown>
-                버튼 종류가 많아질수록 이런 방식이 유리하다.
-            </aside>
-
+<p class="color-muted">종류 많을수록 유리</p>
         </section>
 
         <section>
@@ -957,7 +977,7 @@ html {
         </section>
 
         <section>
-            <h2>페이스북 CSS 용량<br><strong class="text-xlarge">19%</strong><small>(gzip 이후)</small> 감소</h2>
+            <h2>페이스북 CSS 용량<br> <small>gzip 이후</small> <strong class="text-xlarge">19%</strong> 감소</h2>
             <p><a href="https://www.facebook.com/note.php?note_id=307069903919">Making Facebook 2x Faster, 2010-02-19</a></p>
         </section>
 
@@ -1346,9 +1366,9 @@ html {
         <section>
             <p><code>.flex-grid</code> + <code>.title</code> + utilities</p>
 <pre><code class="html" data-noescape>&lt;div class="<mark>flex-grid</mark>">
-&lt;a class="<mark>flex-grid-item</mark>  u-3/12">
+&lt;a class="<mark>flex-grid__item</mark>  u-3/12">
   &lt;img/>
-  &lt;header class="<mark class="bg-positive">title</mark>  <mark class="bg-positive">title-one-line</mark>">
+  &lt;header class="<mark class="bg-positive">title</mark>  <mark class="bg-positive">title--one-line</mark>">
     &lt;p class="u-h3  u-color-sub">...&lt;/p>
     &lt;h1 class="u-h3">...&lt;/h1>
   &lt;/header>
@@ -1392,7 +1412,7 @@ html {
             <h1>목적은 생산성</h1>
             <p class="fragment">빠른 퇴근</p>
 
-            <p>&rarr; 예외</p>
+            <p>∴ 예외 있다</p>
         </section>
 
 
@@ -1415,8 +1435,11 @@ html {
 
 
         <section id="bem">
-            <h1>BEM</h1>
-            <p>Block, Element, Modifier</p>
+            <header>
+                <p>또 다른 무기</p>
+                <h1>BEM</h1>
+            </header>
+            <p class="color-muted"><b>B</b>lock, <b>E</b>lement, <b>M</b>odifier</p>
         </section>
 
 
@@ -1441,11 +1464,11 @@ html {
         <section>
             <h2>연관된 클래스 묶음을 찾아 보자</h2>
 <pre><code class="hljs  html"><div class="media">
-    <img class="img-rev" src="logo.png" alt="Foo Corp logo">
-    <div class="body">
-        <h3 class="alpha">Welcome to Foo Corp</h3>
-        <p class="lede">Foo Corp is the best, seriously!</p>
-    </div>
+  <img class="img-rev" src="logo.png" alt="Foo Corp logo">
+  <div class="body">
+    <h3 class="alpha">Welcome to Foo Corp</h3>
+    <p class="lede">Foo Corp is the best, seriously!</p>
+  </div>
 </div></code></pre>
             <p class="text-small  color-muted">출처: <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">MindBEMding – getting your head ’round BEM syntax</a></p>
         </section>
@@ -1455,11 +1478,11 @@ html {
         <section>
             <h2>연관된 클래스 묶음을 찾아 보자</h2>
 <pre><code class="hljs  html"><div class="media">
-    <img class="media__img--rev" src="logo.png" alt="Foo Corp logo">
-    <div class="media__body">
-        <h3 class="alpha">Welcome to Foo Corp</h3>
-        <p class="lede">Foo Corp is the best, seriously!</p>
-    </div>
+  <img class="media__img--rev" src="logo.png" alt="Foo Corp logo">
+  <div class="media__body">
+    <h3 class="alpha">Welcome to Foo Corp</h3>
+    <p class="lede">Foo Corp is the best, seriously!</p>
+  </div>
 </div></code></pre>
             <p class="text-small  color-muted">출처: <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">MindBEMding – getting your head ’round BEM syntax</a></p>        </section>
 
@@ -1480,15 +1503,11 @@ html {
 
 
         <section>
-            <header>
-                <p class="color-muted">오용1. 초 일관된 BEM</p>
-                <h3>모든 것을 블럭으로 만들 이유는 없다</h3>
-            </header>
+            <p class="color-muted">오용1. 초 일관된 BEM</p>
 
 <pre><code class="css">.header {}
 .header__logo { ... }</code></pre>
 
-            <p>굳이 이러지 말자</p>
             <p>헤더, 푸터, 콘텐츠 영역, 로고...</p>
 
         </section>
@@ -1501,10 +1520,10 @@ html {
                 <h3 class="u-margin-bottom">CSS에 문서 구조를 담지 말자</h3>
             </header>
 
-            <pre><code class="css">#article-footer .issue ul a.more</code></pre>
+            <pre><code class="css">#article-footer .issue ul li a</code></pre>
 
             <p>&darr;</p>
-            <pre><code class="css">.article-footer__issue__ul__more</code></pre>
+            <pre><code class="css">.article-footer__issue__ul__li__a</code></pre>
         </section>
 
 
@@ -1513,9 +1532,8 @@ html {
             <h3 class="text-box" style="display: inline-block;">오용3</h3>
 
             <div class="text-box  text-box--less-transparent  fragment">
-                <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code>
-                </p>
-                <p>추상화 ≠ 원자화</p>
+                <p><code>.mt10 .mt20 .mt30 .mt40 .mt50 .mt60 .mr10 .mr20 .mr30 .mr40 .mr50 .mr60 .f10 .f11 .f12 .f13 .f14 .f15 .f16 .f17 .f18 .f19 .f20 .ffnanum</code></p>
+                <p><b>추상화 ≠ 원자화</b></p>
             </div>
         </section>
 
@@ -1584,7 +1602,7 @@ html {
                 <br>
                 <span class="text-medium"><strong>사람</strong>과 토론한다</span>
             </h2>
-            <p class="color-muted">이건 예외다... 정말?</p>
+            <p class="color-muted">예외<span class="fragment"><br>... 정말?</span></p>
         </section>
 
 

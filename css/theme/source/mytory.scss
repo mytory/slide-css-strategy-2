@@ -53,6 +53,10 @@ body {
   word-break: keep-all;
 }
 
+h1, h2, h3 {
+  word-break: keep-all;
+}
+
 rt {
   color: $oc-gray-6;
   text-transform: none;
@@ -62,9 +66,21 @@ code {
   text-transform: none;
 }
 
-.reveal blockquote {
+.reveal header p {
+  margin: 0;
+}
+
+.reveal .slides blockquote {
+  text-align: left;
   font-style: normal;
   background-color: $oc-gray-2;
+  padding: 1em;
+  p:first-child {
+    margin-top: 0;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 // typo
@@ -144,6 +160,7 @@ code {
 .reveal pre {
   font-size: $mainFontSize;
   font-family: d2coding, nanumgothiccoding, monospace;
+  -webkit-overflow-scrolling: touch;
   code {
     padding: $mainFontSize /2;
   }

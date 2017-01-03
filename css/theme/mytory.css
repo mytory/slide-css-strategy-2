@@ -291,6 +291,9 @@ body {
 body {
   word-break: keep-all; }
 
+h1, h2, h3 {
+  word-break: keep-all; }
+
 rt {
   color: #868e96;
   text-transform: none; }
@@ -298,9 +301,18 @@ rt {
 code {
   text-transform: none; }
 
-.reveal blockquote {
+.reveal header p {
+  margin: 0; }
+
+.reveal .slides blockquote {
+  text-align: left;
   font-style: normal;
-  background-color: #e9ecef; }
+  background-color: #e9ecef;
+  padding: 1em; }
+  .reveal .slides blockquote p:first-child {
+    margin-top: 0; }
+  .reveal .slides blockquote p:last-child {
+    margin-bottom: 0; }
 
 .text-small {
   font-size: 19px !important; }
@@ -357,6 +369,7 @@ code {
 
 .reveal pre {
   font-size: 38px;
-  font-family: d2coding, nanumgothiccoding, monospace; }
+  font-family: d2coding, nanumgothiccoding, monospace;
+  -webkit-overflow-scrolling: touch; }
   .reveal pre code {
     padding: 19px; }
